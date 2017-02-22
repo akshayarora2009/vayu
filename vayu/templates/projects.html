@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+{% set active_page="projects" %}
+{% block title %}Projects{% endblock %}
+{% block content %}
+<h1>Projects</h1>
+<h4>StudentApp</h4>
+<br/>
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="#">Overview</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="#">Fleet Management</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Emergency Actions</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Settings</a>
+    </li>
+</ul>
+
+<br/>
+<button type="button" class="btn btn-outline-warning">Add a new Data Center Region</button>
+<br/>
+
+<div class="card">
+    <div class="card-header">
+        <h5>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">Data Center - Mumbai (MUM)</div>
+                    <div class="col-md-2 pull right">
+                        <button type="button" class="btn btn-primary">Add Host</button>
+                    </div>
+                </div>
+            </div>
+        </h5>
+    </div>
+
+    <div class="card-block">
+        <ul class='list-group'>
+            <li class="list-group-item">studentapp-dsk-1-mum.mea.gov.in</li>
+            <li class="list-group-item">studentapp-dsk-2-mum.mea.gov.in</li>
+        </ul>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">Data Center - Bangalore (BLR)</div>
+                    <div class="col-md-2 pull right">
+                        <button type="button" class="btn btn-primary">Add Host</button>
+                    </div>
+                </div>
+            </div>
+        </h5>
+    </div>
+    <div class="card-block">
+        <ul class='list-group'>
+            <li class="list-group-item">studentapp-dsk-1-blr.mea.gov.in</li>
+            <li class="list-group-item">studentapp-dsk-2-blr.mea.gov.in</li>
+            <li class="list-group-item">studentapp-dsk-3-blr.mea.gov.in</li>
+
+        </ul>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% set navigation_bar = [
+    ('/', 'index', 'Home'),
+    ('/projects', 'projects', 'Projects'),
+    ('/deployments', 'deployments', 'Deployments'),
+    ('/monitoring', 'monitoring', 'Monitoring')
+] -%}
+
+<!doctype html>
+<html>
+<head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>{% block title %}{% endblock %} - Vayu</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/style.css"/>
+    {% endblock %}
+</head>
+<body>
+<!-- Top Navigation Starts -->
+<nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+    <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse"
+            data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">Vayu Control Panel</a>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    </div>
+</nav>
+<!--  Top Navigation Ends -->
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+            <ul class="nav nav-pills flex-column">
+                {% for href, id, caption in navigation_bar %}
+                <li class="nav-item ">
+                    <a class="nav-link {% if id == active_page %}active{% endif %}" href="{{ href|e }}">{{ caption|e }}</a>
+                </li>
+                {% endfor %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Transfer Data</a>
+                </li>
+            </ul>
+
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Settings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About Vayu</a>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+        integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
