@@ -7,10 +7,28 @@
 
     <table class="table table-inverse">
     <thead>
-
+        <tr>
+        <td>Project ID</td>
+        <td>Path</td>
+        </tr>
     </thead>
     <tbody>
-
+        {% for key,value in data['projects'].items() %}
+            <tr>
+                <td>
+                    {{ key }}
+                </td>
+                <td>
+                    {{ value.path }}
+                </td>
+                <td>
+                    <button onclick="window.location.href='/projects/{{ key }}'" class="btn btn-info">Manage</button>
+                </td>
+                <td>
+                    <i data-id="{{ key }}" class="fa fa-times fa-2x delete_project" aria-hidden="true"></i>
+                </td>
+            </tr>
+        {% endfor %}
     </tbody>
     </table>
 
@@ -24,6 +42,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <div id="add_new_error_alert" class="alert alert-danger hide-start" role="alert">
+                        <ul id="add_new_errors">
+
+                        </ul>
+                    </div>
                     <form id="new_project_form">
                         <div class="form-group">
                             <label for="project_id">Project Identifier</label>
@@ -56,6 +79,26 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="confirm-delete">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm Deletion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this project? You cannot undo this operation.</p>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger btn-ok">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 {#<h1>Projects</h1>#}
 {#<h4>StudentApp</h4>#}
