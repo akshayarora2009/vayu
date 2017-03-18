@@ -57,14 +57,21 @@ def moveProject(machine_info , projectPath , projectName):
                 pass
 
         files = []
+        paths = []
         readIgnoredFile(projectPath,projectPath,ignoredFiles,files)
 
         code_dir = vayu.core.constants.local.BASE_DIR_HOST
         code_dir_project = code_dir + projectName
         run(Linux.make_dir + code_dir)
         run(Linux.make_dir + code_dir_project)
+
+        #check if relative path is '.' . If true that means it is in home directory
         for file in files :
-            put(file, code_dir_project)
+            if(file[1]=='.') :
+                put(file[0], code_dir_project)
+            else :
+                run(Linux.make_dir + os.path.join(code_dir_project, file[1]))
+                put(file[0],os.path.join(code_dir_project,file[1]))
 
 
 def checkForGitIgnore(projectPath) :
@@ -86,11 +93,11 @@ def checkForVayuIgnore(projectPath) :
             break
     return found
 
-def readIgnoredFile(projectPath,Path,ignoredFiles,files) :
+def readIgnoredFile(projectPath,Path,ignoredFiles,files):
     allFilesInPath =  os.listdir(Path)
     relDir = os.path.relpath(Path,projectPath)
     for file in allFilesInPath :
         if(isfile( os.path.join(Path,file)) and not ignoredFiles.is_ignored(os.path.join(relDir,file))) :
-            files.append(os.path.join(Path,file))
+            files.append((os.path.join(Path,file),os.path.join(relDir)))
         elif (os.path.isdir(os.path.join(Path,file)) and not ignoredFiles.is_ignored(os.path.join(relDir,file))):
             readIgnoredFile(projectPath,os.path.join(Path,file),ignoredFiles,files)
