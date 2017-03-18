@@ -8,6 +8,7 @@ class Linux:
     get_processor = "uname -p"
     get_hardware = "uname -h"
     get_operating_system = "uname -o"
+    make_dir = "mkdir -p "
 
     class Ubuntu:
         apt_update= "apt-get update"

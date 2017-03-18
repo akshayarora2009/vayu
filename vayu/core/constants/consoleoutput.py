@@ -1,0 +1,1 @@
+GIT_ALREADY_INSTALLED = "git is already installed"
