@@ -63,3 +63,62 @@ def make_sure_vayu_root_exists():
     if not os.path.exists(constants.BASE_DIR):
         print("Creating")
         os.mkdir(constants.BASE_DIR)
+
+
+def add_new_data_center(project_id, center_details):
+    """
+    Adds a new data center for the given project_id
+    :param project_id:
+    :param center_details:
+    :return:
+    """
+
+    projects = shelve.open(constants.PROJECTS_DB, writeback=True)
+    configured_projects = projects[constants.CONFIGURED]
+    try:
+        if project_id in configured_projects:
+            if constants.FLEET not in configured_projects[project_id]:
+                configured_projects[project_id][constants.FLEET] = dict()
+
+            fleet = configured_projects[project_id][constants.FLEET]
+
+            if center_details[constants.DATA_CENTER_ID] not in fleet:
+                fleet[center_details[constants.DATA_CENTER_ID]] = center_details
+            else:
+                raise ValueError("Data Center with same UID is already present")
+    finally:
+        projects.close()
+
+
+def delete_data_center(project_id, data_center_id):
+    """
+    This method deletes a data center from a given project
+    :param project_id:
+    :param data_center_id:
+    :return:
+    """
+    projects = shelve.open(constants.PROJECTS_DB, writeback=True)
+    configured_projects = projects[constants.CONFIGURED]
+    try:
+        if project_id in configured_projects:
+            if constants.FLEET in configured_projects[project_id]:
+                if data_center_id in configured_projects[project_id][constants.FLEET]:
+                    del configured_projects[project_id][constants.FLEET][data_center_id]
+    finally:
+        projects.close()
+
+
+def get_fleet_details(project_id):
+    """
+    Returns the details of the fleet for the given project_id
+    :param project_id:
+    :return:
+    """
+    projects = shelve.open(constants.PROJECTS_DB, writeback=True)
+    configured_projects = projects[constants.CONFIGURED]
+    try:
+        if project_id in configured_projects:
+            if constants.FLEET in configured_projects[project_id]:
+                return configured_projects[project_id][constants.FLEET]
+    finally:
+        projects.close()

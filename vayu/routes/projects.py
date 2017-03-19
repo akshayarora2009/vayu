@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, make_response
 import os
 import vayu.core.local_utils as lutils
 from vayu.core.VayuException import VayuException
+import vayu.core.constants.local as constants
 
 project_app = Blueprint('project_app', __name__)
 
@@ -68,3 +69,63 @@ def delete_project():
 
     return make_response("Success", 200)
 
+
+@project_app.route('/projects/<project_id>')
+@project_app.route('/projects/<project_id>/overview')
+def project_overview(project_id):
+    return render_template("project_overview.html")
+
+
+@project_app.route('/projects/<project_id>/fleet')
+def project_fleet(project_id):
+    fleet_details = lutils.get_fleet_details(project_id)
+    if not fleet_details:
+        fleet_details = dict()
+    return render_template("project_fleet.html", data={constants.FLEET: fleet_details})
+
+
+@project_app.route('/projects/<project_id>/new-data-center', methods=['POST'])
+def new_data_center(project_id):
+    """
+    Adds a new data center for the given project id
+    :param project_id:
+    :return:
+    """
+    errors = []
+    data_center_id = request.form[constants.DATA_CENTER_ID]
+    if not data_center_id:
+        errors.append("Data Center ID seems to be empty")
+
+    data_center_name = request.form[constants.DATA_CENTER_NAME]
+    if not data_center_name:
+        errors.append("Data Center Name seems to be empty")
+
+    center_details = dict()
+    center_details[constants.DATA_CENTER_ID] = data_center_id
+    center_details[constants.DATA_CENTER_NAME] = data_center_name
+
+    if not errors:
+        try:
+            lutils.add_new_data_center(project_id, center_details)
+        except ValueError as e:
+            errors.append(str(e))
+
+    if not errors:
+        return make_response("OK", 200)
+    else:
+        v = VayuException(400, "Please correct the errors", errors)
+        return make_response(v.to_json(), 400)
+
+
+@project_app.route('/projects/<project_id>/delete-data-center', methods=['POST'])
+def delete_data_center(project_id):
+    """
+    This method deletes a data center associated with a particular project_id
+    :param project_id:
+    :return:
+    """
+    data_center_id = request.form[constants.DATA_CENTER_ID]
+    if data_center_id:
+        lutils.delete_data_center(project_id, data_center_id)
+
+    return make_response("OK", 200)

@@ -12,7 +12,7 @@ $(function () {
             $('#add_new_error_alert').show();
             var res = error.responseJSON;
             $addErrors = $('#add_new_errors');
-            $addErrors.empty()
+            $addErrors.empty();
             var errors = res.error.errors;
             for(var i = 0; i < errors.length; ++i){
                 $addErrors.append("<li>" + errors[i] + "</li>");
