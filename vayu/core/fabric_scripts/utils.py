@@ -2,19 +2,33 @@ from __future__ import with_statement
 from fabric.api import settings,cd
 from vayu.core.constants.commands import Linux
 from os.path import isfile
-from fabric.operations import run, put, sudo
-
+from fabric.operations import run, put, sudo,_AttributeString
 import vayu.core.constants.local
 import os
 import zgitignore
 import vayu.core.constants.consoleoutput
-
+#returns a list with the below index
+#0 -s, --kernel-name        the kernel name
+#1  -n, --nodename           the network node hostname
+#2  -r, --kernel-release     the kernel release
+#3  -v, --kernel-version     the kernel version
+#4  -m, --machine            the machine hardware name
+#5  -p, --processor          the processor type or "unknown"
+#6  -i, --hardware-platform  the hardware platform or "unknown"
+#7  -o, --operating-system   the operating system
 def connect(machine_info):
     with settings(warn_only=True,user=machine_info.user,host_string = machine_info.host,password=machine_info.password):
-        result = run(Linux.get_all_details)
+        result = []
+        result.append(_AttributeString(run(Linux.get_kernal_name)))
+        result.append(_AttributeString(run(Linux.get_node_name)))
+        result.append(_AttributeString(run(Linux.get_kernal_release)))
+        result.append(_AttributeString(run(Linux.get_kernal_version)))
+        result.append(_AttributeString(run(Linux.get_machine)))
+        result.append(_AttributeString(run(Linux.get_processor)))
+        result.append(_AttributeString(run(Linux.get_hardware)))
+        result.append(_AttributeString(run(Linux.get_operating_system)))
         installgit(machine_info)
     return result
-
 
 def installgit(machine_info):
     with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,password=machine_info.password):
@@ -28,7 +42,6 @@ def installgit(machine_info):
         else :
             print(vayu.core.constants.consoleoutput.GIT_ALREADY_INSTALLED)
 
-
 def copyMultipleFiles(machine_info,projectName,files=['.']):
     with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,password=machine_info.password):
         user = machine_info.user
@@ -39,7 +52,6 @@ def copyMultipleFiles(machine_info,projectName,files=['.']):
 
         for file in files:
             put(file, code_dir_project)
-
 
 def moveProject(machine_info , projectPath , projectName):
     with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,
@@ -73,7 +85,6 @@ def moveProject(machine_info , projectPath , projectName):
                 run(Linux.make_dir + os.path.join(code_dir_project, file[1]))
                 put(file[0],os.path.join(code_dir_project,file[1]))
 
-
 def checkForGitIgnore(projectPath) :
     files = os.listdir(projectPath)
     found = False
@@ -82,7 +93,6 @@ def checkForGitIgnore(projectPath) :
             found = True
             break
     return found
-
 
 def checkForVayuIgnore(projectPath) :
     files = os.listdir(projectPath)
