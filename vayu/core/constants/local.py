@@ -1,7 +1,6 @@
 import os
 
 
-
 def get_user_home_path():
     """
     This method returns the home path of user
@@ -22,3 +21,10 @@ GIT_IGNORE = ".gitignore"
 BASE_DIR_HOST = "~/.vayu/"
 DATA_CENTER_ID = 'data_center_id'
 DATA_CENTER_NAME = 'data_center_name'
+HOSTS_DB = BASE_DIR + "hosts.db"
+HOST_ID = "host_id"
+HOST_ALIAS = "host_alias"
+HOSTS = "hosts"
+AUTH_METHOD = 'auth_method'
+HOST_AUTH_USER = 'host_auth_user'
+HOST_AUTH_PASSWORD = 'host_auth_password'

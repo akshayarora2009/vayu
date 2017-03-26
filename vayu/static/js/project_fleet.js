@@ -55,8 +55,30 @@ $(function(){
         $confirmDelete.modal();
     });
 
-    $('.btn-ok').on("click", function(e){
+    $('.btn-ok-data-center-deletion').on("click", function(e){
         deleteDataCenter(data_center_to_del);
     });
+
+    var data_center_to_add_host;
+    $('#new_host_modal').on("shown", function(ev){
+       var $invoker = $(ev.relatedTarget);
+        data_center_to_add_host = $invoker.attr('data-datacenterid');
+    });
+
+    $newHostForm = $('#new_host_form');
+    var submit_add_new_host_form = function(){
+         var loc = window.location.pathname.split("/");
+        loc.pop();
+        var pathToPost = loc.join("/") + "/host";
+        $.ajax({
+           url: pathToPost,
+            method: 'POST',
+            data: $newHostForm.serialize() + "&data_center_id=" + data_center_to_add_host
+        }).done(function(res){
+            console.log("Success");
+        }).fail(function(error){
+            console.log(error);
+        });
+    }
 
 });

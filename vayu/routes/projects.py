@@ -3,6 +3,7 @@ import os
 import vayu.core.local_utils as lutils
 from vayu.core.VayuException import VayuException
 import vayu.core.constants.local as constants
+import re
 
 project_app = Blueprint('project_app', __name__)
 
@@ -129,3 +130,45 @@ def delete_data_center(project_id):
         lutils.delete_data_center(project_id, data_center_id)
 
     return make_response("OK", 200)
+
+
+@project_app.route('/projects/<project_id>/host', methods=['POST'])
+def add_new_host_to_data_center(project_id):
+    """
+    Adds a new host to the data center associated with the project
+    :param project_id:
+    :return:
+    """
+    errors = []
+
+    data_center_id = request.form[constants.DATA_CENTER_ID]
+    host_id = request.form[constants.HOST_ID]
+    host_alias = request.form[constants.HOST_ALIAS]
+    auth_method = request.form[constants.AUTH_METHOD]
+    host_auth_user = request.form[constants.HOST_AUTH_USER]
+    host_auth_password = request.form[constants.HOST_AUTH_PASSWORD]
+
+    # TODO Implement SSH key based login as well. See upvoted answer to a stackoverflow question
+
+    if not host_id:
+        errors.append("Host ID cannot be empty")
+
+    ip_regex = r"^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$"
+    hostname_regex = r"^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])(\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9]))*$"
+
+    if not (re.search(ip_regex, host_id) and re.search(hostname_regex, host_id)):
+        errors.append("Invalid Host name or IP address")
+
+    if not host_alias:
+        errors.append("Host Alias cannot be empty")
+
+    if auth_method == "ssh_keys":
+        errors.append("Using SSH keys is not yet supported")
+
+    if not host_auth_user:
+        errors.append("User cannot be empty")
+
+    if not host_auth_password:
+        errors.append("User password cannot be empty")
+
+
