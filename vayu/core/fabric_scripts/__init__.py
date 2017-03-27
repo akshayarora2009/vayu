@@ -1,6 +1,6 @@
-import utils
-from vayu.core.constants.model import machine_info
-mm = machine_info("root","139.59.35.6","ahjvayu2017")
-
-output = utils.connect(mm)
-print (output)
+# import utils
+# from vayu.core.constants.model import machine_info
+# mm = machine_info("root","139.59.35.6","ahjvayu2017")
+#
+# output = utils.connect(mm,True)
+# print (output)

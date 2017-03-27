@@ -9,6 +9,10 @@ class Linux:
     get_hardware = "uname -i"
     get_operating_system = "uname -o"
     make_dir = "mkdir -p "
+    ping = "ping "
+    ping_complete = " -w 5 | grep rtt"
+    lsb_release = "lsb_release -a"
+
 
     class Ubuntu:
         apt_update= "apt-get update"
