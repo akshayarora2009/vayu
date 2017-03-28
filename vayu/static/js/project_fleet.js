@@ -59,13 +59,48 @@ $(function(){
         deleteDataCenter(data_center_to_del);
     });
 
+    $delHost = $('.delete-host');
+    $confirmDelHost = $('#confirm_del_host_modal');
+
+
+    var deleteHost = function(data_center_id, host_id){
+        var dataString = "data_center_id=" + data_center_id + "&host_id=" + host_id;
+        var loc = window.location.pathname.split("/");
+        loc.pop();
+        var pathToPost = loc.join("/") + "/host/delete";
+
+        $.ajax({
+            url: pathToPost,
+            method: 'POST',
+            data: dataString
+        }).done(function(res){
+            window.location.reload();
+        }).fail(function(err){
+           alert("There was an error deleting.");
+        });
+    };
+
+    var host_to_delete;
+    var data_center_id_for_host_del;
+    $delHost.on("click", function(ev){
+        ev.preventDefault();
+       host_to_delete = $(this).attr('data-hostid');
+       data_center_id_for_host_del = $(this).attr('data-datacenterid');
+       $confirmDelHost.modal();
+    });
+
+
+    $('.btn-ok-host-deletion').on("click", function(ev){
+        deleteHost(data_center_id_for_host_del, host_to_delete);
+    });
+
     var data_center_to_add_host;
     var $newHostModal = $('#new_host_modal');
     var newHostModalClone = $newHostModal.html();
     $newHostModal.on("hidden.bs.modal", function(ev){
        $newHostModal.html(newHostModalClone);
     });
-    $newHostModal.on("shown", function(ev){
+    $newHostModal.on("shown.bs.modal", function(ev){
        var $invoker = $(ev.relatedTarget);
         data_center_to_add_host = $invoker.attr('data-datacenterid');
     });
@@ -103,14 +138,19 @@ $(function(){
 
     $hostErrorList = $('#host_errors');
     $newHostErrorAlert = $('#new_host_error_alert');
+    $hostDetailsList = $('#host_details_list');
     var connectHost = function(){
       $.ajax({
           url: '/hosts/connect',
           method: 'POST',
           data: $newHostForm.serialize()
       }).done(function(res){
+          $('#host_details_alert').show();
           host_details_known = true;
-         console.log(res);
+            console.log(res);
+            $hostDetailsList.append("<li>OS Type: " + res["operating_system"]);
+            $hostDetailsList.append("<li>OS Name: " + res["kernal_version"]);
+            $hostDetailsList.append("<li>Hardware: " + res["hardware"]);
       }).fail(function(err){
           $newHostErrorAlert.show();
           console.log(err);
@@ -134,13 +174,41 @@ $(function(){
             $.ajax({
                 url: '/hosts',
                 method: 'GET'
-            }).done(function(res){
-               console.log(res);
-               hosts = res;
-            }).fail(function(error){
+            }).done(function (res) {
+                console.log(res);
+                if (res["hosts"]) {
+                    hosts = res["hosts"];
+                    for (var key in hosts) {
+                        if (hosts.hasOwnProperty(key)) {
+                            $('#existing_host_id').append("<option value='" + key + "'>" + key + " (" + hosts[key]["host_alias"] + ")" + "</option>");
+                        }
+                    }
+                }
+
+            }).fail(function (error) {
                 console.log(error);
             });
         }
+    });
+
+    $addExistingHostForm = $('#add_existing_host_form');
+    $addExistingHostForm.on("submit", function(ev){
+        ev.preventDefault();
+        var dataString = $addExistingHostForm.serialize() + "&data_center_id=" + data_center_to_add_host;
+        var loc = window.location.pathname.split("/");
+        loc.pop();
+        var pathToPost = loc.join("/") + "/host/existing";
+
+        $.ajax({
+            url: pathToPost,
+            method: 'POST',
+            data: dataString
+        }).done(function(res){
+            window.location.reload();
+        }).fail(function(err){
+            alert("Failed to add existing host. This shouldn't happen. Please report this issue");
+        });
+
     });
 
 });

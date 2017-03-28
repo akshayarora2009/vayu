@@ -145,6 +145,23 @@ def add_new_host(host_id, host_details):
         hosts.close()
 
 
+def delete_configured_host(host_id):
+    """
+    Deletes a given host permanently
+    :param host_id: 
+    :return: 
+    """
+    hosts = shelve.open(constants.HOSTS_DB, writeback=True)
+
+    try:
+        if constants.CONFIGURED in hosts:
+            del hosts[constants.CONFIGURED][host_id]
+    finally:
+        hosts.close()
+
+#delete_configured_host("139.59.79.62")
+
+
 def check_if_host_is_configured(host_id):
     """
     Checks if the host with the given host_id is configured in the hosts.db
@@ -180,7 +197,9 @@ def add_host_to_data_center(project_id, data_center_id, host_id):
                     data_center = configured_projects[project_id][constants.FLEET][data_center_id]
                     if constants.HOSTS not in data_center:
                         data_center[constants.HOSTS] = list()
-                    data_center[constants.HOSTS].append(host_id)
+
+                    if host_id not in data_center[constants.HOSTS]:
+                        data_center[constants.HOSTS].append(host_id)
 
     finally:
         projects.close()
@@ -247,3 +266,28 @@ def validate_new_host_details(req):
         hosts.close()
 
     return errors
+
+
+def delete_association_of_host_with_datacenter(project_id, data_center_id, host_id):
+    """
+    Deletes association of a host with a data center
+    :param project_id: 
+    :param data_center_id: 
+    :param host_id: 
+    :return: 
+    """
+    projects = shelve.open(constants.PROJECTS_DB, writeback=True)
+
+    if constants.CONFIGURED in projects:
+        configured_projects = projects[constants.CONFIGURED]
+    try:
+        if project_id in configured_projects:
+            if constants.FLEET in configured_projects[project_id]:
+                if data_center_id in configured_projects[project_id][constants.FLEET]:
+                    data_center = configured_projects[project_id][constants.FLEET][data_center_id]
+
+                    if host_id in data_center[constants.HOSTS]:
+                        data_center[constants.HOSTS].remove(host_id)
+
+    finally:
+        projects.close()
