@@ -33,6 +33,7 @@ class Linux:
         delete_nodejsappplication_pm2 = "pm2 delete "
         show_nodejsappplication_pm2 = "pm2 show "
         pm2_name = " --name "
+        npm_install = "npm install"
 
 
 
