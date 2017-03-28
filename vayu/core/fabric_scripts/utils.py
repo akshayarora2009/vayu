@@ -71,19 +71,24 @@ def copyMultipleFiles(machine_info,projectName,files=['.']):
 def deployNodeJs(machine_info,projectName,startingFile="app.js"):
     with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,
                   password=machine_info.password):
+        print "DETAILS OF PREIVOUS RUNNING " + projectName
+        codeResult = run(Linux.Ubuntu.show_nodejsappplication_pm2+projectName)
+        if codeResult.return_code == 0:
+            run(Linux.Ubuntu.delete_nodejsappplication_pm2+projectName)
         run(Linux.Ubuntu.run_nodejsappplication_pm2+os.path.join(vayu.core.constants.local.BASE_DIR_HOST,projectName,startingFile)+Linux.Ubuntu.pm2_name+projectName) #~/.vayu/nodeTest/server.js
+        print "DETAILS OF NEW RUNNING " + projectName
+        run(Linux.Ubuntu.show_nodejsappplication_pm2 + projectName)
+
 
 def stopDeploy(machine_info,projectName):
     with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,
                   password=machine_info.password):
         run(Linux.Ubuntu.stop_nodejsappplication_pm2+projectName) #~/.vayu/nodeTest/server.js
 
-
 def deleteDeploy(machine_info,projectName):
     with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,
                   password=machine_info.password):
         run(Linux.Ubuntu.delete_nodejsappplication_pm2+projectName) #~/.vayu/nodeTest/server.js
-
 
 def moveProject(machine_info , projectPath , projectName):
     with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,

@@ -28,9 +28,10 @@ class Linux:
         install_node_js = "sudo apt-get -y install nodejs"
         install_node = "sudo apt-get -y install node"
         run_nodejsappplication = "node "
-        run_nodejsappplication_pm2 = "pm2 start "
+        run_nodejsappplication_pm2 = "pm2 start -f "
         stop_nodejsappplication_pm2 = "pm2 stop "
         delete_nodejsappplication_pm2 = "pm2 delete "
+        show_nodejsappplication_pm2 = "pm2 show "
         pm2_name = " --name "
 
 
