@@ -38,6 +38,23 @@ def installgit(machine_info):
         else :
             print(vayu.core.constants.consoleoutput.GIT_ALREADY_INSTALLED)
 
+
+def installNodeJsDependicies(machine_info):
+    with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,
+                  password=machine_info.password):
+        code_dir = vayu.core.constants.local.BASE_DIR_HOST
+        run(Linux.make_dir + code_dir)
+        codeResult = run(Linux.Ubuntu.check_node)
+        if codeResult.return_code != 0:
+            with cd(code_dir):
+                sudo(Linux.Ubuntu.apt_update)
+                sudo(Linux.Ubuntu.install_npm)
+                sudo(Linux.Ubuntu.install_nvmfromnpm)
+                sudo(Linux.Ubuntu.install_node_js)
+                sudo(Linux.Ubuntu.install_node_legacy)
+        else:
+            print(vayu.core.constants.consoleoutput.NODE_ALREADY_INSTALLED)
+
 def copyMultipleFiles(machine_info,projectName,files=['.']):
     with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,password=machine_info.password):
         user = machine_info.user
@@ -48,6 +65,13 @@ def copyMultipleFiles(machine_info,projectName,files=['.']):
 
         for file in files:
             put(file, code_dir_project)
+
+def deployNodeJs(machine_info,projectName,startingFile):
+    with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,
+                  password=machine_info.password):
+        run(Linux.Ubuntu.run_nodejsappplication+os.path.join(vayu.core.constants.local.BASE_DIR_HOST,projectName,startingFile)) #~/.vayu/nodeTest/server.js
+
+
 
 def moveProject(machine_info , projectPath , projectName):
     with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,
@@ -107,3 +131,6 @@ def readIgnoredFile(projectPath,Path,ignoredFiles,files):
             files.append((os.path.join(Path,file),os.path.join(relDir)))
         elif (os.path.isdir(os.path.join(Path,file)) and not ignoredFiles.is_ignored(os.path.join(relDir,file))):
             readIgnoredFile(projectPath,os.path.join(Path,file),ignoredFiles,files)
+
+
+
