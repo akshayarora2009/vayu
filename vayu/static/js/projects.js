@@ -91,7 +91,7 @@ $(function () {
             path = $(this).data("path"),
             uuid = get_uuid();
         $(this).text("Deploying");
-        $(this).append("<img src='../static/img/loading-wheel.gif' id='deploying_gif' style='height:30px' alt='...'/>");
+        $(this).append("<img src='../static/img/loading-wheel.gif' id='deploying_gif' style='height:25px;padding-left:10px' alt='...'/>");
         deployProject(key , path , uuid);
     })
 
