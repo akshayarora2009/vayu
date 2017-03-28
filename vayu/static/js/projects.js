@@ -1,4 +1,5 @@
 $(function () {
+    var deployButton;
     $('.hide-start').hide();
     var submit_form = function(){
         $.ajax({
@@ -31,7 +32,6 @@ $(function () {
             data: dataString
         }).done(function(res){
             console.log(res);
-            location.reload();
         }).fail(function(error){
             alert("Something went wrong");
         })
@@ -76,7 +76,8 @@ $(function () {
             data: dataString
         }).done(function(res){
             console.log(res);
-            location.reload();
+            deployButton.text("Deployed");
+            $("#deploying_gif").remove();
         }).fail(function(error){
             alert("Something went wrong");
         })
@@ -85,9 +86,12 @@ $(function () {
     $('.deploy').on("click",function (e) {
         e.preventDefault();
         console.log("1111");
+        deployButton = $(this);
         var key = $(this).data("key"),
             path = $(this).data("path"),
             uuid = get_uuid();
+        $(this).text("Deploying");
+        $(this).append("<img src='../static/img/loading-wheel.gif' id='deploying_gif' style='height:30px' alt='...'/>");
         deployProject(key , path , uuid);
     })
 
