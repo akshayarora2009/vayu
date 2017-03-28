@@ -28,3 +28,6 @@ HOSTS = "hosts"
 AUTH_METHOD = 'auth_method'
 HOST_AUTH_USER = 'host_auth_user'
 HOST_AUTH_PASSWORD = 'host_auth_password'
+HOST_ARCHITECTURE = 'host_architecture'
+HOST_OS = 'host_os'
+HOST_DETAILS = 'host_details'

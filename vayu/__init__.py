@@ -4,9 +4,11 @@ import core.constants.local as constants
 import core.local_utils as lutils
 
 from vayu.routes.projects import project_app
+from vayu.routes.hosts import hosts_app
 from vayu.core.VayuException import VayuException
 app = Flask(__name__)
 app.register_blueprint(project_app)
+app.register_blueprint(hosts_app)
 
 
 @app.route('/')

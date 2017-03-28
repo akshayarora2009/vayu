@@ -1,3 +1,4 @@
+import re
 import shelve
 import vayu.core.constants.local as constants
 import os
@@ -183,3 +184,66 @@ def add_host_to_data_center(project_id, data_center_id, host_id):
 
     finally:
         projects.close()
+
+
+def get_list_of_hosts():
+    """
+    Returns the list of all hosts
+    :return: 
+    """
+    hosts = shelve.open(constants.HOSTS_DB, writeback=True)
+    res = dict()
+    res[constants.HOSTS] = dict()
+    try:
+        if constants.CONFIGURED in hosts:
+            res[constants.HOSTS] = hosts[constants.CONFIGURED]
+
+        return res
+    finally:
+        hosts.close()
+
+
+def validate_new_host_details(req):
+    """
+    Validates the host details passed to connect/add new host
+    :param req: 
+    :return: 
+    """
+    errors = []
+
+    host_id = req[constants.HOST_ID]
+    host_alias = req[constants.HOST_ALIAS]
+    auth_method = req[constants.AUTH_METHOD]
+    host_auth_user = req[constants.HOST_AUTH_USER]
+    host_auth_password = req[constants.HOST_AUTH_PASSWORD]
+
+    if not host_id:
+        errors.append("Host ID cannot be empty")
+
+    ip_regex = r"^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$"
+    hostname_regex = r"^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])(\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9]))*$"
+
+    if not (re.search(ip_regex, host_id) and re.search(hostname_regex, host_id)):
+        errors.append("Invalid Host name or IP address")
+
+    if not host_alias:
+        errors.append("Host Alias cannot be empty")
+
+    if auth_method == "ssh_keys":
+        errors.append("Using SSH keys is not yet supported")
+
+    if not host_auth_user:
+        errors.append("User cannot be empty")
+
+    if not host_auth_password:
+        errors.append("User password cannot be empty")
+
+    hosts = shelve.open(constants.HOSTS_DB)
+    try:
+        if constants.CONFIGURED in hosts:
+            if host_id in hosts[constants.CONFIGURED]:
+                errors.append("Host with same id is already configured")
+    finally:
+        hosts.close()
+
+    return errors

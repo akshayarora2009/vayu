@@ -143,6 +143,3 @@ def readIgnoredFile(projectPath,Path,ignoredFiles,files):
             files.append((os.path.join(Path,file),os.path.join(relDir)))
         elif (os.path.isdir(os.path.join(Path,file)) and not ignoredFiles.is_ignored(os.path.join(relDir,file))):
             readIgnoredFile(projectPath,os.path.join(Path,file),ignoredFiles,files)
-
-
-

@@ -60,25 +60,87 @@ $(function(){
     });
 
     var data_center_to_add_host;
-    $('#new_host_modal').on("shown", function(ev){
+    var $newHostModal = $('#new_host_modal');
+    var newHostModalClone = $newHostModal.html();
+    $newHostModal.on("hidden.bs.modal", function(ev){
+       $newHostModal.html(newHostModalClone);
+    });
+    $newHostModal.on("shown", function(ev){
        var $invoker = $(ev.relatedTarget);
         data_center_to_add_host = $invoker.attr('data-datacenterid');
     });
 
+    var host_details_known = false;
     $newHostForm = $('#new_host_form');
     var submit_add_new_host_form = function(){
          var loc = window.location.pathname.split("/");
         loc.pop();
-        var pathToPost = loc.join("/") + "/host";
+        var pathToPost = loc.join("/") + "/host/new";
         $.ajax({
            url: pathToPost,
             method: 'POST',
-            data: $newHostForm.serialize() + "&data_center_id=" + data_center_to_add_host
+            data: $newHostForm.serialize() + "&data_center_id=" + data_center_to_add_host + "&host_details=" + host_details_known
         }).done(function(res){
             console.log("Success");
-        }).fail(function(error){
-            console.log(error);
+            window.location.reload();
+        }).fail(function(err){
+            $newHostErrorAlert.show();
+            console.log(err);
+            $hostErrorList.empty();
+            var errors = err.responseJSON.error.errors;
+            for(var i = 0; i < errors.length; ++i){
+                $hostErrorList.append("<li>" + errors[i] + "</li>");
+            }
+          window.scrollTo(0, 0);
         });
-    }
+    };
+
+    $confirmAddHost = $('#confirm_add_host');
+    $confirmAddHost.on("click", function(ev){
+        ev.preventDefault();
+        submit_add_new_host_form();
+    });
+
+    $hostErrorList = $('#host_errors');
+    $newHostErrorAlert = $('#new_host_error_alert');
+    var connectHost = function(){
+      $.ajax({
+          url: '/hosts/connect',
+          method: 'POST',
+          data: $newHostForm.serialize()
+      }).done(function(res){
+          host_details_known = true;
+         console.log(res);
+      }).fail(function(err){
+          $newHostErrorAlert.show();
+          console.log(err);
+          $hostErrorList.empty();
+          var errors = err.responseJSON.error.errors;
+          for(var i = 0; i < errors.length; ++i){
+              $hostErrorList.append("<li>" + errors[i] + "</li>");
+          }
+          window.scrollTo(0, 0);
+      });
+    };
+
+    $newHostForm.on("submit", function(ev){
+       ev.preventDefault();
+        connectHost();
+    });
+
+    hosts = {};
+    $newHostModal.on("show.bs.modal", function(ev){
+        if($.isEmptyObject(hosts)){
+            $.ajax({
+                url: '/hosts',
+                method: 'GET'
+            }).done(function(res){
+               console.log(res);
+               hosts = res;
+            }).fail(function(error){
+                console.log(error);
+            });
+        }
+    });
 
 });

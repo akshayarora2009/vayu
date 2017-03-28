@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, make_response
+from flask import Blueprint, render_template, request, make_response, jsonify
 import os
 import vayu.core.local_utils as lutils
 import vayu.core.fabric_scripts.utils as futils
@@ -147,7 +147,7 @@ def delete_data_center(project_id):
     return make_response("OK", 200)
 
 
-@project_app.route('/projects/<project_id>/host', methods=['POST'])
+@project_app.route('/projects/<project_id>/host/new', methods=['POST'])
 def add_new_host_to_data_center(project_id):
     """
     Adds a new host to the data center associated with the project
@@ -163,27 +163,47 @@ def add_new_host_to_data_center(project_id):
     host_auth_user = request.form[constants.HOST_AUTH_USER]
     host_auth_password = request.form[constants.HOST_AUTH_PASSWORD]
 
+    req = dict()
+    req[constants.HOST_ID] = host_id
+    req[constants.HOST_ALIAS] = host_alias
+    req[constants.AUTH_METHOD] = auth_method
+    req[constants.HOST_AUTH_USER] = host_auth_user
+    req[constants.HOST_AUTH_PASSWORD] = host_auth_password
+
+    errors = lutils.validate_new_host_details(req)
+
+    if not data_center_id:
+        errors.append("Data Center ID cannot be empty")
+
+    req[constants.DATA_CENTER_ID] = data_center_id
+
+    host_details_known = request.form[constants.HOST_DETAILS]
+    if host_details_known != 'true':
+        errors.append("You must connect with the Host before adding it permanently")
+
     # TODO Implement SSH key based login as well. See upvoted answer to a stackoverflow question
 
-    if not host_id:
-        errors.append("Host ID cannot be empty")
+    if not errors:
+        try:
+            hid = lutils.add_new_host(host_id, req)
+            lutils.add_host_to_data_center(project_id, data_center_id, host_id)
+        except ValueError, e:
+            errors.append(str(e))
 
-    ip_regex = r"^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$"
-    hostname_regex = r"^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])(\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9]))*$"
-
-    if not (re.search(ip_regex, host_id) and re.search(hostname_regex, host_id)):
-        errors.append("Invalid Host name or IP address")
-
-    if not host_alias:
-        errors.append("Host Alias cannot be empty")
-
-    if auth_method == "ssh_keys":
-        errors.append("Using SSH keys is not yet supported")
-
-    if not host_auth_user:
-        errors.append("User cannot be empty")
-
-    if not host_auth_password:
-        errors.append("User password cannot be empty")
+    if not errors:
+        return make_response("OK", 201)
+    else:
+        v = VayuException(400, "Please Correct the errors", errors)
+        return make_response(v.to_json(), v.status_code)
 
 
+@project_app.route('/hosts', methods=['GET'])
+def get_host_list():
+    """
+    Returns the list of all configured hosts.
+    This endpoint is usually used by client side by an AJAX call
+    :return: 
+    """
+    hosts = lutils.get_list_of_hosts()
+
+    return make_response(jsonify(hosts), 200)
