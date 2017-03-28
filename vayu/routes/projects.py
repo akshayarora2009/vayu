@@ -97,6 +97,13 @@ def project_fleet(project_id):
     fleet_details = lutils.get_fleet_details(project_id)
     if not fleet_details:
         fleet_details = dict()
+
+    # for key, value in fleet_details.items():
+    #     print(value['hosts'])
+    for key, value in fleet_details.items():
+        print key
+        print value
+
     return render_template("project_fleet.html", data={constants.FLEET: fleet_details})
 
 
@@ -207,3 +214,33 @@ def get_host_list():
     hosts = lutils.get_list_of_hosts()
 
     return make_response(jsonify(hosts), 200)
+
+
+@project_app.route('/projects/<project_id>/host/delete', methods=['POST'])
+def delete_host_association(project_id):
+    """
+    Endpoint to delete an association of a particular data center with a host
+    :param project_id: 
+    :return: 
+    """
+    data_center_id = request.form[constants.DATA_CENTER_ID]
+    host_id = request.form[constants.HOST_ID]
+
+    lutils.delete_association_of_host_with_datacenter(project_id, data_center_id, host_id)
+
+    return make_response("OK", 201)
+
+
+@project_app.route('/projects/<project_id>/host/existing', methods=['POST'])
+def add_existing_host(project_id):
+    """
+    Adds an existing host to the data center specified for the given project
+    :param project_id: 
+    :return: 
+    """
+    data_center_id = request.form[constants.DATA_CENTER_ID]
+    host_id = request.form["existing_host_id"]
+
+    lutils.add_host_to_data_center(project_id, data_center_id, host_id)
+
+    return make_response("OK", 201)
