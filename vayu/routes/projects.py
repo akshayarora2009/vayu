@@ -82,7 +82,7 @@ def deploy_project(uuid):
     project_id = request.form["project_id"]
     project_path = request.form["project_path"]
     futils.moveProject(machine_info , project_path , project_id)
-
+    futils.deployNodeJs(machine_info,project_id,"app.js")
     return make_response("Success", 200)
 
 
