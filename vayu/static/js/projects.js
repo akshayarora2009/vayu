@@ -56,5 +56,39 @@ $(function () {
         window.location.href("/projects/" + $(this).attr('data-target'));
     });
 
+    function get_uuid() {
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+        s4() + '-' + s4() + s4() + s4();
+    }
+
+    var deployProject = function (project_id , project_path , uuid) {
+        var dataString = {};
+        dataString["project_id"] = project_id;
+        dataString["project_path"] = project_path;
+        $.ajax({
+            url: '/' + uuid,
+            method: 'POST',
+            data: dataString
+        }).done(function(res){
+            console.log(res);
+            location.reload();
+        }).fail(function(error){
+            alert("Something went wrong");
+        })
+    };
+
+    $('.deploy').on("click",function (e) {
+        e.preventDefault();
+        console.log("1111");
+        var key = $(this).data("key"),
+            path = $(this).data("path"),
+            uuid = get_uuid();
+        deployProject(key , path , uuid);
+    })
 
 });

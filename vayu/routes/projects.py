@@ -1,12 +1,14 @@
 from flask import Blueprint, render_template, request, make_response
 import os
 import vayu.core.local_utils as lutils
+import vayu.core.fabric_scripts.utils as futils
+from vayu.core.constants.model import machine_info
 from vayu.core.VayuException import VayuException
 import vayu.core.constants.local as constants
 import re
 
 project_app = Blueprint('project_app', __name__)
-
+machine_info = machine_info("root","139.59.35.6","ahjvayu2017")
 
 @project_app.route('/projects', methods=['GET'])
 def projects():
@@ -67,6 +69,19 @@ def delete_project():
     """
     project_id = request.form["project_id"]
     lutils.delete_project(project_id)
+
+    return make_response("Success", 200)
+
+
+@project_app.route("/<uuid>", methods=['POST'])
+def deploy_project(uuid):
+    """
+    Deploy a project with particular id
+    :return:
+    """
+    project_id = request.form["project_id"]
+    project_path = request.form["project_path"]
+    futils.moveProject(machine_info , project_path , project_id)
 
     return make_response("Success", 200)
 
