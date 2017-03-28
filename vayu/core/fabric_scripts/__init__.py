@@ -11,3 +11,8 @@
 #
 # output = utils.deployNodeJs(mm,"nodeTest","server.js")
 # print (output)
+#
+#
+# output = utils.deleteDeploy(mm,"nodeTest")
+# print (output)
+#

@@ -23,9 +23,15 @@ class Linux:
         install_npm = "sudo apt-get -y install npm"
         install_nvmfromnpm = "npm install nvm"
         install_nodefromnpm = "npm install node"
+        install_pm2fromnpm = "npm install pm2 -g"
         install_node_legacy = "sudo apt-get -y install nodejs-legacy"
         install_node_js = "sudo apt-get -y install nodejs"
         install_node = "sudo apt-get -y install node"
         run_nodejsappplication = "node "
+        run_nodejsappplication_pm2 = "pm2 start "
+        stop_nodejsappplication_pm2 = "pm2 stop "
+        delete_nodejsappplication_pm2 = "pm2 delete "
+        pm2_name = " --name "
+
 
 

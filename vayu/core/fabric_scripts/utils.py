@@ -52,8 +52,10 @@ def installNodeJsDependicies(machine_info):
                 sudo(Linux.Ubuntu.install_nvmfromnpm)
                 sudo(Linux.Ubuntu.install_node_js)
                 sudo(Linux.Ubuntu.install_node_legacy)
+                sudo(Linux.Ubuntu.install_pm2fromnpm)
         else:
             print(vayu.core.constants.consoleoutput.NODE_ALREADY_INSTALLED)
+
 
 def copyMultipleFiles(machine_info,projectName,files=['.']):
     with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,password=machine_info.password):
@@ -66,11 +68,21 @@ def copyMultipleFiles(machine_info,projectName,files=['.']):
         for file in files:
             put(file, code_dir_project)
 
-def deployNodeJs(machine_info,projectName,startingFile):
+def deployNodeJs(machine_info,projectName,startingFile="app.js"):
     with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,
                   password=machine_info.password):
-        run(Linux.Ubuntu.run_nodejsappplication+os.path.join(vayu.core.constants.local.BASE_DIR_HOST,projectName,startingFile)) #~/.vayu/nodeTest/server.js
+        run(Linux.Ubuntu.run_nodejsappplication_pm2+os.path.join(vayu.core.constants.local.BASE_DIR_HOST,projectName,startingFile)+Linux.Ubuntu.pm2_name+projectName) #~/.vayu/nodeTest/server.js
 
+def stopDeploy(machine_info,projectName):
+    with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,
+                  password=machine_info.password):
+        run(Linux.Ubuntu.stop_nodejsappplication_pm2+projectName) #~/.vayu/nodeTest/server.js
+
+
+def deleteDeploy(machine_info,projectName):
+    with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,
+                  password=machine_info.password):
+        run(Linux.Ubuntu.delete_nodejsappplication_pm2+projectName) #~/.vayu/nodeTest/server.js
 
 
 def moveProject(machine_info , projectPath , projectName):
