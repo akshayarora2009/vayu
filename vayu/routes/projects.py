@@ -10,6 +10,7 @@ import re
 project_app = Blueprint('project_app', __name__)
 machine_info = machine_info("root","139.59.35.6","ahjvayu2017")
 
+
 @project_app.route('/projects', methods=['GET'])
 def projects():
     all_projects = lutils.get_list_of_projects()

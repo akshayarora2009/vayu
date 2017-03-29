@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from flask import make_response
+from flask import make_response, redirect
 import core.constants.local as constants
 import core.local_utils as lutils
 
@@ -14,7 +14,8 @@ app.register_blueprint(hosts_app)
 @app.route('/')
 def home():
     lutils.make_sure_vayu_root_exists()
-    return render_template("index.html")
+    return redirect('/projects')
+    #return render_template("index.html")
 
 
 @app.route('/deployments')

@@ -32,6 +32,7 @@ $(function () {
             data: dataString
         }).done(function(res){
             console.log(res);
+            window.location.reload();
         }).fail(function(error){
             alert("Something went wrong");
         })
