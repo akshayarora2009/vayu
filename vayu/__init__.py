@@ -5,17 +5,18 @@ import core.local_utils as lutils
 
 from vayu.routes.projects import project_app
 from vayu.routes.hosts import hosts_app
+from vayu.routes.api import api_app
 from vayu.core.VayuException import VayuException
 app = Flask(__name__)
 app.register_blueprint(project_app)
 app.register_blueprint(hosts_app)
+app.register_blueprint(api_app)
 
 
 @app.route('/')
 def home():
     lutils.make_sure_vayu_root_exists()
-    return redirect('/projects')
-    #return render_template("index.html")
+    return redirect('/projects', 301)
 
 
 @app.route('/deployments')

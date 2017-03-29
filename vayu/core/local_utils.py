@@ -291,3 +291,19 @@ def delete_association_of_host_with_datacenter(project_id, data_center_id, host_
 
     finally:
         projects.close()
+
+
+def get_project_details_by_id(project_id):
+    """
+    Returns the details of project by given id
+    :param project_id: 
+    :return: 
+    """
+    projects = shelve.open(constants.PROJECTS_DB)
+
+    try:
+        if constants.CONFIGURED in projects:
+            if project_id in projects[constants.CONFIGURED]:
+                return projects[constants.CONFIGURED][project_id]
+    finally:
+        projects.close()
