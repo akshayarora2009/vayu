@@ -73,7 +73,18 @@ $(function(){
         var project_id = $(location).attr("href").split('/')[4];
         var dataString = $overview_form.serialize() + "&project_id=" + project_id;
         var uuid = get_uuid();
-        window.location.href = "/deployments/" + uuid + "?" + dataString;   
+        $.ajax({
+            url: '/api/projects/' + project_id ,
+            method: 'GET',
+            data: dataString
+        }).done(function(res){
+            var data = res.data[0],
+                path = data.path;
+            window.location.href = "/deployments/" + uuid + "?" + dataString + "&project_path=" + path;
+        }).fail(function(error){
+            alert("Something went wrong");
+        });
+
     });
 
 });

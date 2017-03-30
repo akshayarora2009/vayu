@@ -10,12 +10,12 @@ from vayu.core.constants.model import machine_info
 deployment_app = Blueprint('deployment_app', __name__)
 machine_info = machine_info("root","139.59.35.6","ahjvayu2017")
 
-
 @deployment_app.route('/deployments/<uuid>')
 def deployments_uuid(uuid):
-	project = dict()
-    project[project_id] = request.args.get('project_id')
-    project[project_path] = "/home/harshita/Documents/test"
-    futils.moveProject(machine_info , project_path , project_id)
-    futils.deployNodeJs(machine_info,project_id,"server.js")
-    return render_template("deployments.html" , project_details = project)
+    project = dict()
+    project["id"] = request.args.get('project_id')
+    project["path"] = request.args.get('project_path')
+    project["deployment_language"] = request.args.get('deployment_language')
+    project["language_version"] = request.args.get('language_version_id')
+    project["language_prod"] = request.args.get('language_prod_id')
+    return render_template("deployments.html" , project = project)

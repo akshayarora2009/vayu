@@ -5,16 +5,16 @@ import core.local_utils as lutils
 import core.fabric_scripts.utils as futils
 from vayu.routes.projects import project_app
 from vayu.routes.hosts import hosts_app
-# from vayu.routes.api import api_app
-# from vayu.routes.deployment import deployment_app
+from vayu.routes.api import api_app
+from vayu.routes.deployment import deployment_app
 from vayu.core.VayuException import VayuException
 from vayu.core.constants.model import machine_info
 
 app = Flask(__name__)
 app.register_blueprint(project_app)
 app.register_blueprint(hosts_app)
-# app.register_blueprint(api_app)
-# app.register_blueprint(deployment_app)
+app.register_blueprint(api_app)
+app.register_blueprint(deployment_app)
 
 machine_info = machine_info("root","139.59.35.6","ahjvayu2017")
 
@@ -28,32 +28,21 @@ def home():
 def deployments():
 	return render_template("deployments.html")
 
-
-@app.route('/deployments/<uuid>')
-def deployments_uuid(uuid):
-    project = dict()
-    project["id"] = request.args.get('project_id')
-    project["deployment_language"] = request.args.get('deployment_language')
-    project["language_version"] = request.args.get('language_version_id')
-    project["language_prod"] = request.args.get('language_prod_id')
-    project["path"] = "/home/harshita/Documents/test"
-    # futils.moveProject(machine_info , project_path , project_id)
-    # futils.deployNodeJs(machine_info,project_id,"server.js")
-    return render_template("deployments.html" , project = project)
-    # futils.moveProject(machine_info , project['path'] , project['id'])
-    # futils.deployNodeJs(machine_info, project['id'] ,"server.js")
-
-@app.route("/abc", methods=['POST'])
-def deploy_project():
+@app.route("/deploy/<project_id>", methods=['POST'])
+def deploy_project(project_id):
     """
     Deploy a project with particular id
     :return:
     """
-    project_id = request.form["project_id"]
-    project_path = request.form["project_path"]
-    futils.moveProject(machine_info , project_path , project_id)
-    futils.deployNodeJs(machine_info,project_id,"server.js")
-    return render_template("deployments.html")
+    project = dict()
+    project["path"] = request.form["project_path"]
+    project["id"] = project_id
+    project["entry_point"] = request.form["entry_point"]
+    print(project)
+    print("heeeee")
+    futils.moveProject(machine_info , project["path"] , project_id)
+    futils.deployNodeJs(machine_info,project_id, project["entry_point"])
+    return make_response("Success", 200)
 
 @app.route('/monitoring')
 def monitoring():
