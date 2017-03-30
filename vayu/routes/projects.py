@@ -90,7 +90,8 @@ def deploy_project(uuid):
 @project_app.route('/projects/<project_id>')
 @project_app.route('/projects/<project_id>/overview')
 def project_overview(project_id):
-    return render_template("project_overview.html")
+    print project_id
+    return render_template("project_overview.html" , project_id = project_id)
 
 
 @project_app.route('/projects/<project_id>/fleet')

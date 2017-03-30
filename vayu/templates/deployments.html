@@ -2,5 +2,32 @@
 {% set active_page="deployments" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-    <p>Sample text</p>
+    <div class="row margin-20 border-bottom">
+      <div class="col-md-8 col-sm-6"><h1 class="width-100 border-none">{{ project['id'] }}</h1></div>
+      <div class="col-md-4 col-sm-6 "> 
+
+      </div>
+      <div class="col-md-3 col-sm-2">Path : </div><div class="col-md-9 col-sm-10">{{ project['path'] }}</div>
+      <div class="col-md-3 col-sm-2">Deployment Language : </div><div class="col-md-9 col-sm-10">{{ project['deployment_language'] }}</div>
+      <div class="col-md-3 col-sm-2">Language version : </div><div class="col-md-9 col-sm-10">{{ project['language_version'] }}</div>
+      <div class="col-md-3 col-sm-2 margin-20">Language production version : </div><div class="col-md-9 col-sm-10">{{ project['language_prod'] }}</div>
+    </div>
+
+    <div class="row margin-20 border-bottom ">
+      <div class="col-md-3 col-sm-12" >
+        <h4 class="margin-20">Current Activity</h4>
+
+        <button class="btn btn-info deploy_btn">Deploy</button>
+      </div>
+      <div class="col-md-9 col-sm-12">
+        <div class="circular_progress_bar">
+          <img class="progress_bar" src="../static/img/circular_progress_bar.png">
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
+{% block userscripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.0/jquery.chained.min.js"></script>
+    <script src="/static/js/project_deployment.js"></script>
 {% endblock %}

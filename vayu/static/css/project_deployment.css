@@ -1,0 +1,71 @@
+.width-100{
+	width: 100%
+}
+
+.height-100{
+	height: 100%;
+}
+
+.height-50px{
+	height: 50px
+}
+
+.progress_bar{
+	width: 100%;
+	height: 100%;
+}
+
+.circular_progress_bar{
+	width: 200px;
+	height: 200px;
+}
+
+.border-bottom{
+	border-bottom: 1px solid #eee;
+}
+
+.border-none{
+	border-bottom: none;
+}
+
+.margin-20{
+	margin-bottom: 20px;
+
+}
+
+.padding-9{
+	padding-bottom: 9px;
+}
+
+.run-icon , .pause-icon , .stop-icon , .play-icon{
+	-webkit-background-size: cover;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	margin-right: 10px;
+	padding-top: 5px;
+}
+
+.run-icon , .play-icon{
+	background-image: url('../photos/run.png');
+}
+
+.pause-icon{
+	background-image: url('../photos/pause.png');
+}
+
+.stop-icon{
+	background-image: url('../photos/stop.png');
+}
+
+.skyblue{
+	background-color: #cceadc;
+}
+
+.run-button , .play-button , .pause-button , .stop-button{
+	border: 2px solid black;
+}
+
+.display-none{
+	display: none;
+}

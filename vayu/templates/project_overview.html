@@ -18,5 +18,55 @@
           </li>
     </ul>
 
+    <form id="overview_form">
+        <div class="form-group row">
+            <div class="col-md-4 col-sm-12">
+              <label for="deployment_language">Language</label>
+            </div>
+            <div class="col-md-8 col-sm-12">
+              <select class="form-control" name="deployment_language" id="deployment_language_id">
+              </select>
+            </div>
+        </div>
 
+        <div class="form-group row">  
+            <div class="col-md-4 col-sm-12" id="language_version_label">
+              
+            </div>
+            <div class="col-md-8 col-sm-12">
+              <select class="form-control" name="language_version_id" id="language_version_id">
+              </select>
+              <small class="overview_help" class="form-text text-muted">For Example, 7.6.0 for node.js</small>
+            </div>
+        </div>
+
+        <div class="form-group row">  
+            <div class="col-md-4 col-sm-12" id="language_prod_label">
+              
+            </div>
+            <div class="col-md-8 col-sm-12">
+              <select class="form-control" name="language_prod_id" id="language_prod_id">
+              </select>
+              <small class="overview_help" class="form-text text-muted">For Example, pm2 for node.js</small>
+            </div>
+        </div>
+
+        <div class="form-group row">  
+            <div class="col-md-4 col-sm-12">
+              <label for="entry_point">Entry point</label>
+            </div>
+            <div class="col-md-8 col-sm-12">
+              <input class="form-control deployment_overview" type="text" name="entry_point" id="entry_point_id"/>
+              <small class="overview_help" class="form-text text-muted">For Example, /bin/www for express app</small>
+            </div>
+        </div>    
+        <input type="submit" class="btn btn-primary start_deployment_btn" data-id="{{ project_id }}" value="Start deployment" />  
+        {{ project_id }}
+    </form>
+
+{% endblock %}
+
+{% block userscripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.0/jquery.chained.min.js"></script>
+    <script src="/static/js/project_overview.js"></script>
 {% endblock %}
