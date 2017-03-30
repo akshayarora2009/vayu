@@ -26,8 +26,19 @@ def get_project_details_by_id(project_id):
         res[constants.ERROR][constants.ERRORS] = ["The project id is invalid"]
         return make_response(jsonify(res), 400)
     else:
+
+        host_details_wanted = request.args.get("host_details")
+        if host_details_wanted == "true":
+            all_hosts = []
+            if constants.FLEET in project_details:
+                for key, value in project_details[constants.FLEET].iteritems():
+                    if constants.HOSTS in value:
+                        all_hosts.extend(value[constants.HOSTS])
+
+            host_details = lutils.get_hosts_details(all_hosts)
+            project_details[constants.HOST_DETAILS] = host_details
+
         project_details[constants.PROJECT_ID] = project_id
-        print(project_details)
         res[constants.DATA] = []
         res[constants.DATA].append(project_details)
         return make_response(jsonify(res), 200)

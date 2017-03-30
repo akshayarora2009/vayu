@@ -15,8 +15,8 @@ app.register_blueprint(project_app)
 app.register_blueprint(hosts_app)
 app.register_blueprint(api_app)
 app.register_blueprint(deployment_app)
-
 machine_info = machine_info("root","139.59.35.6","ahjvayu2017")
+
 
 @app.route('/')
 def home():

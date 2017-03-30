@@ -307,3 +307,27 @@ def get_project_details_by_id(project_id):
                 return projects[constants.CONFIGURED][project_id]
     finally:
         projects.close()
+
+
+def get_hosts_details(hosts):
+    """
+    Return the complete details of the given hosts
+    :param hosts: String containing host ID OR list() of strings containing host IDs
+    :return: 
+    """
+    hosts_db = shelve.open(constants.HOSTS_DB)
+    res = dict()
+    if isinstance(hosts, basestring):
+        req = [hosts]
+    else:
+        req = hosts
+
+    try:
+        for host in req:
+            if constants.CONFIGURED in hosts_db:
+                if host in hosts_db[constants.CONFIGURED]:
+                    host_details = hosts_db[constants.CONFIGURED][host]
+                    res[host] = host_details
+        return res
+    finally:
+        hosts_db.close()
