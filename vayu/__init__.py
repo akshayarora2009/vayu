@@ -9,6 +9,8 @@ from vayu.routes.api import api_app
 from vayu.routes.deployment import deployment_app
 from vayu.core.VayuException import VayuException
 from vayu.core.constants.model import machine_info
+from vayu.core.constants.model import project_info
+from multiprocessing import Pool
 
 app = Flask(__name__)
 app.register_blueprint(project_app)
@@ -22,6 +24,10 @@ machine_info = machine_info("root","139.59.35.6","ahjvayu2017")
 def home():
     lutils.make_sure_vayu_root_exists()
     return redirect('/projects', 301)
+
+def moveAndDeployProject(machine_info,project_info1):
+    futils.moveProject(machine_info, project_info1)
+    futils.deployCode(machine_info, project_info1)
 
 
 @app.route('/deployments')
@@ -38,10 +44,20 @@ def deploy_project(project_id):
     project["path"] = request.form["project_path"]
     project["id"] = project_id
     project["entry_point"] = request.form["entry_point"]
-    print(project)
-    print("heeeee")
-    futils.moveProject(machine_info , project["path"] , project_id)
-    futils.deployNodeJs(machine_info,project_id, project["entry_point"])
+
+    project_info1 = project_info(project_id,"nodejs", project["path"], project["entry_point"])
+
+    print(project_info1)
+
+    if __name__ == '__main__':
+        pool = Pool(processes=1)  # Start a worker processes.
+        pool.apply_async( moveAndDeployProject, [machine_info,project_info1],callback = callback)
+    # @harshita
+    #The above condition makes deployment aysnc
+    #if I keep the below return, UI immmediately shows "DEPLOYED"
+    #if I remove it, the UI Says something went wrong along with "DEPLOYMENT FAILED".
+    #I was thinking of sending some other response  from this function which will
+    # show deploying as the success message comes from  callback, then make it deployed.
     return make_response("Success", 200)
 
 @app.route('/monitoring')
@@ -49,9 +65,16 @@ def monitoring():
 	return render_template("monitoring.html")
 
 
+def callback():
+    print("callback called")
+    return make_response("Success", 200)
+
 @app.errorhandler(VayuException)
 def some_error_occurred(error):
 	return make_response(error.to_json(), error.status_code)
 
 if __name__ == "__main__":
-	app.run("0.0.0.0", debug=True)
+	app.run("0.0.0.0",port=5003, debug=True)
+
+
+

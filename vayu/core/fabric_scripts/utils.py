@@ -25,7 +25,6 @@ def connect(machine_info,installGit=False):
             installgit(machine_info)
     return result
 
-
 def installgit(machine_info):
     with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,password=machine_info.password):
         code_dir = vayu.core.constants.local.BASE_DIR_HOST
@@ -37,7 +36,6 @@ def installgit(machine_info):
                 sudo(Linux.Ubuntu.install_git)
         else :
             print(vayu.core.constants.consoleoutput.GIT_ALREADY_INSTALLED)
-
 
 def installNodeJsDependicies(machine_info):
     with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,
@@ -56,7 +54,6 @@ def installNodeJsDependicies(machine_info):
         else:
             print(vayu.core.constants.consoleoutput.NODE_ALREADY_INSTALLED)
 
-
 def copyMultipleFiles(machine_info,projectName,files=['.']):
     with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,password=machine_info.password):
         user = machine_info.user
@@ -68,9 +65,15 @@ def copyMultipleFiles(machine_info,projectName,files=['.']):
         for file in files:
             put(file, code_dir_project)
 
-def deployNodeJs(machine_info,projectName,startingFile="app.js"):
+def deployCode (machine_info,projectInfo):
+    if projectInfo.type == "nodejs" :
+        deployNodeJs(machine_info,projectInfo)
+
+def deployNodeJs(machine_info,projectInfo):
     with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,
                   password=machine_info.password):
+        projectName = projectInfo.name
+        startingFile = projectInfo.entry_point
         print "DETAILS OF PREIVOUS RUNNING " + projectName
 
         codeResult = run(Linux.Ubuntu.show_nodejsappplication_pm2+projectName)
@@ -85,7 +88,6 @@ def deployNodeJs(machine_info,projectName,startingFile="app.js"):
         print "DETAILS OF NEW RUNNING " + projectName
         run(Linux.Ubuntu.show_nodejsappplication_pm2 + projectName)
 
-
 def stopDeploy(machine_info,projectName):
     with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,
                   password=machine_info.password):
@@ -96,10 +98,17 @@ def deleteDeploy(machine_info,projectName):
                   password=machine_info.password):
         run(Linux.Ubuntu.delete_nodejsappplication_pm2+projectName) #~/.vayu/nodeTest/server.js
 
-def moveProject(machine_info , projectPath , projectName):
+def addProject(projectPath):
+    with settings(warn_only=True):
+            local("cd "+projectPath+" | "+Linux.Ubuntu.git_init)
+            local(Linux.Ubuntu.git_add)
+            local(Linux.Ubuntu.git_commit)
+
+def moveProject(machine_info ,project_info1):
     with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,
                   password=machine_info.password):
-
+        projectPath = project_info1.path
+        projectName = project_info1.id
         ignoredFiles = zgitignore.ZgitIgnore(ignore_case=False)
         try:
             if (checkForVayuIgnore(projectPath)):
@@ -156,3 +165,7 @@ def readIgnoredFile(projectPath,Path,ignoredFiles,files):
             files.append((os.path.join(Path,file),os.path.join(relDir)))
         elif (os.path.isdir(os.path.join(Path,file)) and not ignoredFiles.is_ignored(os.path.join(relDir,file))):
             readIgnoredFile(projectPath,os.path.join(Path,file),ignoredFiles,files)
+
+
+
+
