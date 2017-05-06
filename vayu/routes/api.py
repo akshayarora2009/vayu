@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, request, make_response, jsonify
 import os
-import core.local_utils as lutils
-import core.fabric_scripts.utils as futils
-from core.constants.model import machine_info
-from core.VayuException import VayuException
-import core.constants.local as constants
+import vayu.core.local_utils as lutils
+import vayu.core.fabric_scripts.utils as futils
+from vayu.core.constants.model import machine_info
+from vayu.core.VayuException import VayuException
+import vayu.core.constants.local as constants
 
 api_app = Blueprint('api_app', __name__)
 

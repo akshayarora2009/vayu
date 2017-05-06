@@ -5,11 +5,11 @@ import core.local_utils as lutils
 import core.fabric_scripts.utils as futils
 from vayu.routes.projects import project_app
 from vayu.routes.hosts import hosts_app
-from routes.api import api_app
-from routes.deployment import deployment_app
-from core.VayuException import VayuException
-from core.constants.model import machine_info
-from core.constants.model import project_info
+from vayu.routes.api import api_app
+from vayu.routes.deployment import deployment_app
+from vayu.core.VayuException import VayuException
+from vayu.core.constants.model import machine_info
+from vayu.core.constants.model import project_info
 from multiprocessing import Pool
 
 app = Flask(__name__)
