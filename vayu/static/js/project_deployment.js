@@ -17,9 +17,9 @@ $(function () {
             method: 'POST',
             data: dataString
         }).done(function(res){
-            console.log(res);
-            $(".deploy_btn").text("Deployed");
-            $("#deploying_gif").remove();
+            // console.log(res);
+            // $(".deploy_btn").text("Deployed");
+            // $("#deploying_gif").remove();
         }).fail(function(error){
             alert("Something went wrong");
             $(".deploy_btn").text("Deployment failed");
@@ -29,8 +29,10 @@ $(function () {
 
     var startDeployment = (function(){
         var dataString = {},
+            deploymentLanguage = $.urlParam('deployment_language'),
             project_id = $.urlParam('project_id'),
             entryPoint = $.urlParam('entry_point');
+        dataString["deploymentLanguage"] = deploymentLanguage;
         dataString["project_id"] = project_id;
         dataString["entry_point"] = entryPoint;
         $.ajax({
