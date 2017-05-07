@@ -76,8 +76,9 @@ $(function(){
             data: dataString
         }).done(function(res){
             var data = res.data[0],
-                path = data.path;
-            window.location.href = "/deployments/" + uuid + "?" + dataString + "&project_path=" + path;
+                path = data.path,
+                git_ignore = data.use_gitignore;
+            window.location.href = "/deployments/" + uuid + "?" + dataString + "&project_path=" + path + "&git_ignore=" + git_ignore;
         }).fail(function(error){
             alert("Something went wrong");
         });
