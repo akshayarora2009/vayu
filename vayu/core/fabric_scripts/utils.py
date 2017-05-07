@@ -92,15 +92,15 @@ def deployPython(machine_info,projectInfo):
         installPythonDependencies(machine_info)
         projectName = projectInfo.id
         startingFile = projectInfo.entry_point
-        print "DETAILS OF PREIVOUS RUNNING " + projectName
+        #print "DETAILS OF PREIVOUS RUNNING " + projectName
 
         #codeResult = run(Linux.Ubuntu.show_nodejsappplication_pm2+projectName)
         #if codeResult.return_code == 0:
          #   run(Linux.Ubuntu.delete_nodejsappplication_pm2+projectName)
 
         with cd(os.path.join(vayu.core.constants.local.BASE_DIR_HOST,projectName)):
-            run("python setup.py install")
-            run("python "+startingFile)
+            run("python3 setup.py install")
+            run("python3 "+startingFile)
 
         #print "DETAILS OF NEW RUNNING " + projectName
         #run(Linux.Ubuntu.show_nodejsappplication_pm2 + projectName)
