@@ -29,12 +29,14 @@ $(function () {
 
     var startDeployment = (function(){
         var dataString = {},
-            deploymentLanguage = $.urlParam('deployment_language'),
+            deployment_language = $.urlParam('deployment_language'),
             project_id = $.urlParam('project_id'),
-            entryPoint = $.urlParam('entry_point');
-        dataString["deploymentLanguage"] = deploymentLanguage;
+            entryPoint = $.urlParam('entry_point'),
+            port_number = $.urlParam('port_number');
+        dataString["deployment_language"] = deployment_language;
         dataString["project_id"] = project_id;
         dataString["entry_point"] = entryPoint;
+        dataString["port_number"] = port_number;
         $.ajax({
             url: '/api/projects/' + project_id ,
             method: 'GET',

@@ -18,4 +18,5 @@ def deployments_uuid(uuid):
     project["deployment_language"] = request.args.get('deployment_language')
     project["language_version"] = request.args.get('language_version_id')
     project["language_prod"] = request.args.get('language_prod_id')
+    project["port_number"] = request.args.get('port_number')
     return render_template("deployments.html" , project = project)

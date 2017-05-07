@@ -41,14 +41,12 @@ def deploy_project(project_id):
     :return:
     """
     project = dict()
-    project["deployment_language"] = request.form["deploymentLanguage"]
+    project["deployment_language"] = request.form["deployment_language"]
     project["path"] = request.form["project_path"]
     project["id"] = project_id
     project["entry_point"] = request.form["entry_point"]
-    print(project_id)
+    project["port_number"] = request.form["port_number"]
     project_info1 = project_info(project_id, project["deployment_language"] , project["path"], project["entry_point"])
-
-
 
     pool = Pool(processes=1) 
     pool.apply_async(moveAndDeployProject, [machine_info,project_info1],callback = callback)
