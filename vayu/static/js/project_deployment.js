@@ -10,7 +10,7 @@ $(function () {
         }
     };
 
-    var nextDeployment = function (dataString) {
+    var startDeployment = function (dataString) {
         var project_id = dataString["project_id"];
         $.ajax({
             url: '/deploy/' + project_id ,
@@ -27,30 +27,45 @@ $(function () {
         })
     };
 
-    var startDeployment = (function(){
+    var getHostDetails = (function(){
         var dataString = {},
             deployment_language = $.urlParam('deployment_language'),
             project_id = $.urlParam('project_id'),
             entryPoint = $.urlParam('entry_point'),
-            port_number = $.urlParam('port_number');
-        dataString["deployment_language"] = deployment_language;
-        dataString["project_id"] = project_id;
-        dataString["entry_point"] = entryPoint;
-        dataString["port_number"] = port_number;
-        $.ajax({
-            url: '/api/projects/' + project_id ,
-            method: 'GET',
-            data: dataString
-        }).done(function(res){
+            port_number = $.urlParam('port_number'),
+            project_path = $.urlParam('project_path'),
+            git_ignore = $.urlParam('git_ignore');
+
+            dataString["deployment_language"] = deployment_language;
+            dataString["project_id"] = project_id;
+            dataString["entry_point"] = entryPoint;
+            dataString["port_number"] = port_number;
+            dataString["project_path"] = project_path;
+            dataString["git_ignore"] = git_ignore;
+
+            console.log(JSON.stringify(dataString));
+
             $(".deploy_btn").text("Deploying");
             $(".deploy_btn").append("<img src='../static/img/loading-wheel.gif' id='deploying_gif' style='height:25px;padding-left:10px' alt='...'/>");
-            var data = res.data[0];
-            dataString["project_path"] = data.path;
-            dataString["git_ignore"] = data.use_gitignore;
-            nextDeployment(dataString);
-        }).fail(function(error){
-            alert("Something went wrong");
-        });
+            
+            $.ajax({
+                url: '/api/projects/' + project_id ,
+                method: 'GET'
+            }).done(function(res){
+                var data = res.data[0],
+                    fleet = data.fleet;
+                for (var key in fleet){
+                    console.log(key, fleet[key]);
+                    host = fleet[key].hosts[0];
+                    break;
+                }
+                console.log("host: " + host);
+                dataString["host"] = host;
+                console.log(JSON.stringify(dataString));
+            }).fail(function(error){
+                alert("Something went wrong");
+            });
+            startDeployment(dataString);
     })();
 
 });
