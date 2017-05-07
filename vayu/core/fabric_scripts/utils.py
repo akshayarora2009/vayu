@@ -10,8 +10,8 @@ import vayu.core.constants.consoleoutput
 import sys
 
 
-def assignouterr(file):
-    sys.stdout = file
+def assignouterr():
+    sys.stdout = open('/home/jatin/PycharmProjects/vayu/console.log', 'w')
 
 def connect(machine_info,installGit=False):
     with settings(warn_only=True,user=machine_info.user,host_string = machine_info.host,password=machine_info.password):

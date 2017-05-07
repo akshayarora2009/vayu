@@ -1,22 +1,97 @@
 VAYUIGNORE FOUND
 [139.59.35.6] run: mkdir -p ~/.vayu/
-[139.59.35.6] run: mkdir -p ~/.vayu/pythonSample
-[139.59.35.6] put: /home/jatin/pythonsample/setup.py~ -> /root/.vayu/pythonSample/setup.py~
-[139.59.35.6] put: /home/jatin/pythonsample/.vayuignore -> /root/.vayu/pythonSample/.vayuignore
-[139.59.35.6] put: /home/jatin/pythonsample/python_sample.py -> /root/.vayu/pythonSample/python_sample.py
+[139.59.35.6] run: mkdir -p ~/.vayu/todo
+[139.59.35.6] put: /home/jatin/node-test/.vayuignore -> /root/.vayu/todo/.vayuignore
+[139.59.35.6] put: /home/jatin/node-test/app.js -> /root/.vayu/todo/app.js
+[139.59.35.6] run: mkdir -p ~/.vayu/todo/.git/hooks
+[139.59.35.6] put: /home/jatin/node-test/.git/hooks/pre-rebase.sample -> /root/.vayu/todo/.git/hooks/pre-rebase.sample
+[139.59.35.6] run: mkdir -p ~/.vayu/todo/.git/hooks
+[139.59.35.6] put: /home/jatin/node-test/.git/hooks/pre-push.sample -> /root/.vayu/todo/.git/hooks/pre-push.sample
+[139.59.35.6] run: mkdir -p ~/.vayu/todo/.git/hooks
+[139.59.35.6] put: /home/jatin/node-test/.git/hooks/applypatch-msg.sample -> /root/.vayu/todo/.git/hooks/applypatch-msg.sample
+[139.59.35.6] run: mkdir -p ~/.vayu/todo/.git/hooks
+[139.59.35.6] put: /home/jatin/node-test/.git/hooks/pre-commit.sample -> /root/.vayu/todo/.git/hooks/pre-commit.sample
+[139.59.35.6] run: mkdir -p ~/.vayu/todo/.git/hooks
+[139.59.35.6] put: /home/jatin/node-test/.git/hooks/update.sample -> /root/.vayu/todo/.git/hooks/update.sample
+[139.59.35.6] run: mkdir -p ~/.vayu/todo/.git/hooks
+[139.59.35.6] put: /home/jatin/node-test/.git/hooks/commit-msg.sample -> /root/.vayu/todo/.git/hooks/commit-msg.sample
+[139.59.35.6] run: mkdir -p ~/.vayu/todo/.git/hooks
+[139.59.35.6] put: /home/jatin/node-test/.git/hooks/post-update.sample -> /root/.vayu/todo/.git/hooks/post-update.sample
+[139.59.35.6] run: mkdir -p ~/.vayu/todo/.git/hooks
+[139.59.35.6] put: /home/jatin/node-test/.git/hooks/pre-applypatch.sample -> /root/.vayu/todo/.git/hooks/pre-applypatch.sample
+[139.59.35.6] run: mkdir -p ~/.vayu/todo/.git/hooks
+[139.59.35.6] put: /home/jatin/node-test/.git/hooks/prepare-commit-msg.sample -> /root/.vayu/todo/.git/hooks/prepare-commit-msg.sample
+[139.59.35.6] run: mkdir -p ~/.vayu/todo/.git
+[139.59.35.6] put: /home/jatin/node-test/.git/COMMIT_EDITMSG -> /root/.vayu/todo/.git/COMMIT_EDITMSG
+[139.59.35.6] run: mkdir -p ~/.vayu/todo/.git
+[139.59.35.6] put: /home/jatin/node-test/.git/index -> /root/.vayu/todo/.git/index
+[139.59.35.6] run: mkdir -p ~/.vayu/todo/.git/info
+[139.59.35.6] put: /home/jatin/node-test/.git/info/exclude -> /root/.vayu/todo/.git/info/exclude
+[139.59.35.6] run: mkdir -p ~/.vayu/todo/.git
+[139.59.35.6] put: /home/jatin/node-test/.git/HEAD -> /root/.vayu/todo/.git/HEAD
+[139.59.35.6] run: mkdir -p ~/.vayu/todo/.git/objects/9b
+[139.59.35.6] put: /home/jatin/node-test/.git/objects/9b/77054575d6e4d60870a88c9558ccc1c9b70076 -> /root/.vayu/todo/.git/objects/9b/77054575d6e4d60870a88c9558ccc1c9b70076
+[139.59.35.6] run: mkdir -p ~/.vayu/todo/.git/objects/22
+[139.59.35.6] put: /home/jatin/node-test/.git/objects/22/5b0589b6a1ef98638f478ec2c3dd3c9fb3b321 -> /root/.vayu/todo/.git/objects/22/5b0589b6a1ef98638f478ec2c3dd3c9fb3b321
+[139.59.35.6] run: mkdir -p ~/.vayu/todo/.git/objects/e6
+[139.59.35.6] put: /home/jatin/node-test/.git/objects/e6/9de29bb2d1d6434b8b29ae775ad8c2e48c5391 -> /root/.vayu/todo/.git/objects/e6/9de29bb2d1d6434b8b29ae775ad8c2e48c5391
+[139.59.35.6] run: mkdir -p ~/.vayu/todo/.git/objects/ea
+[139.59.35.6] put: /home/jatin/node-test/.git/objects/ea/a753cfc105030de657ed449b824febba31bb89 -> /root/.vayu/todo/.git/objects/ea/a753cfc105030de657ed449b824febba31bb89
+[139.59.35.6] run: mkdir -p ~/.vayu/todo/.git/refs/heads
+[139.59.35.6] put: /home/jatin/node-test/.git/refs/heads/master -> /root/.vayu/todo/.git/refs/heads/master
+[139.59.35.6] run: mkdir -p ~/.vayu/todo/.git
+[139.59.35.6] put: /home/jatin/node-test/.git/config -> /root/.vayu/todo/.git/config
+[139.59.35.6] run: mkdir -p ~/.vayu/todo/.git/logs
+[139.59.35.6] put: /home/jatin/node-test/.git/logs/HEAD -> /root/.vayu/todo/.git/logs/HEAD
+[139.59.35.6] run: mkdir -p ~/.vayu/todo/.git/logs/refs/heads
+[139.59.35.6] put: /home/jatin/node-test/.git/logs/refs/heads/master -> /root/.vayu/todo/.git/logs/refs/heads/master
+[139.59.35.6] run: mkdir -p ~/.vayu/todo/.git
+[139.59.35.6] put: /home/jatin/node-test/.git/description -> /root/.vayu/todo/.git/description
 [139.59.35.6] run: mkdir -p ~/.vayu/
 [139.59.35.6] run: node -v
 [139.59.35.6] out: v4.2.6
 [139.59.35.6] out: 
 
 Nodejs is already installed
-[139.59.35.6] sudo: kill $(sudo lsof -t -i:0)
-[139.59.35.6] out: kill: usage: kill [-s sigspec | -n signum | -sigspec] pid | jobspec ... or kill -l [sigspec]
+DETAILS OF PREIVOUS RUNNING todo
+[139.59.35.6] run: pm2 show todo
+[139.59.35.6] out: [1m[7m Describing process with id 0 - name todo [27m[22m
+[139.59.35.6] out: [90m┌───────────────────┬──────────────────────────────────┐[39m
+[139.59.35.6] out: [90m│[39m[1m[36m status            [39m[22m[90m│[39m [32m[1monline[22m[39m                           [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m name              [39m[22m[90m│[39m todo                             [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m restarts          [39m[22m[90m│[39m 0                                [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m uptime            [39m[22m[90m│[39m 3m                               [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m script path       [39m[22m[90m│[39m /root/.vayu/todo/app.js          [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m script args       [39m[22m[90m│[39m N/A                              [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m error log path    [39m[22m[90m│[39m /root/.pm2/logs/todo-error-0.log [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m out log path      [39m[22m[90m│[39m /root/.pm2/logs/todo-out-0.log   [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m pid path          [39m[22m[90m│[39m /root/.pm2/pids/todo-0.pid       [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m interpreter       [39m[22m[90m│[39m node                             [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m interpreter args  [39m[22m[90m│[39m N/A                              [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m script id         [39m[22m[90m│[39m 0                                [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m exec cwd          [39m[22m[90m│[39m /root                            [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m exec mode         [39m[22m[90m│[39m fork_mode                        [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m node.js version   [39m[22m[90m│[39m 4.2.6                            [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m watch & reload    [39m[22m[90m│[39m ✘                                [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m unstable restarts [39m[22m[90m│[39m 0                                [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m created at        [39m[22m[90m│[39m 2017-05-07T12:38:44.610Z         [90m│[39m
+[139.59.35.6] out: [90m└───────────────────┴──────────────────────────────────┘[39m
+[139.59.35.6] out: [7m[1m Code metrics value [22m[27m
+[139.59.35.6] out: [90m┌────────────┬────────┐[39m
+[139.59.35.6] out: [90m│[39m[1m[36m Loop delay [39m[22m[90m│[39m 0.51ms [90m│[39m
+[139.59.35.6] out: [90m└────────────┴────────┘[39m
+[139.59.35.6] out: [37m[3m Add your own code metrics: http://bit.ly/code-metrics[23m[39m
+[139.59.35.6] out: [37m[3m Use `pm2 logs todo [--lines 1000]` to display logs[23m[39m
+[139.59.35.6] out: [37m[3m Use `pm2 monit` to monitor CPU and Memory usage[23m[39m todo
 [139.59.35.6] out: 
 
-DETAILS OF PREIVOUS RUNNING pythonSample
-[139.59.35.6] run: pm2 show pythonSample
-[139.59.35.6] out: [33m[PM2][WARN] [39mpythonSample doesn't exist
+[139.59.35.6] run: pm2 delete todo
+[139.59.35.6] out: [32m[PM2] [39mApplying action deleteProcessId on app [todo](ids: 0)
+[139.59.35.6] out: [32m[PM2] [39m[todo](0) ✓
+[139.59.35.6] out: [90m┌──────┬──────┬────────┬───┬─────┬────────┐[39m
+[139.59.35.6] out: [90m│[39m[1m[36m Name [39m[22m[90m│[39m[1m[36m mode [39m[22m[90m│[39m[1m[36m status [39m[22m[90m│[39m[1m[36m ↺ [39m[22m[90m│[39m[1m[36m cpu [39m[22m[90m│[39m[1m[36m memory [39m[22m[90m│[39m
+[139.59.35.6] out: [90m└──────┴──────┴────────┴───┴─────┴────────┘[39m
+[139.59.35.6] out: [37m[3m Use `pm2 show <id|name>` to get more details about an app[23m[39m
 [139.59.35.6] out: 
 
 [139.59.35.6] run: npm install
@@ -25,7 +100,7 @@ DETAILS OF PREIVOUS RUNNING pythonSample
 [139.59.35.6] out: [?25h[?25h[1A[0G[K[37m[40mnpm[0m [0m[30m[43mWARN[0m [0m[35mdeprecated[0m nvm@0.0.4: This is NOT the correct nvm. Visit http://nvm.sh and use the curl command to install it.
 [139.59.35.6] out: [0m[?25l[0Gextract                   ▄ ╢██████████████████████████████████░░░░░░░░░░░░░░░╟
 [139.59.35.6] out: [?25h[1A[?25l[0Gextract → gunzTarPerm     ▌ ╢██████████████████████████████████░░░░░░░░░░░░░░░╟
-[139.59.35.6] out: [?25h[1A[?25l[0Ginstall → lifecycle       ▄ ╢██████████████████████████████████████████░░░░░░░╟
+[139.59.35.6] out: [?25h[1A[?25l[0Gpostinstall → lifecycle   ▄ ╢██████████████████████████████████████████░░░░░░░╟
 [139.59.35.6] out: [?25h[?25h[1A[0G[K[?25l[0GrunTopLevelLifecycles     ▌ ╢███████████████████████████████████████████████░░╟
 [139.59.35.6] out: [?25h[?25h[1A[0G[K/root/.vayu
 [139.59.35.6] out: └── [40m[33mnvm@0.0.4[0m[0m 
@@ -42,19 +117,42 @@ DETAILS OF PREIVOUS RUNNING pythonSample
 [139.59.35.6] out: [?25h[?25h[1A[0G[K[37m[40mnpm[0m [0m[30m[43mWARN[0m[35m[0m .vayu No license field.
 [139.59.35.6] out: [0m[?25l[0GrunTopLevelLifecycles     ▀ ╢███████████████████████████████████████████████░░╟
 [139.59.35.6] out: [?25h[?25h[1A[0G[K[?25h[0G[K
-[139.59.35.6] run: pm2 start -f ~/.vayu/pythonSample/app.js --name pythonSample
-[139.59.35.6] out: [31m[PM2][ERROR] [39mscript not found : /root/.vayu/pythonSample/app.js
-[139.59.35.6] out: script not found : /root/.vayu/pythonSample/app.js
+[139.59.35.6] run: pm2 start -f ~/.vayu/todo/app.js --name todo
+[139.59.35.6] out: [32m[PM2] [39mStarting /root/.vayu/todo/app.js in fork_mode (1 instance)
+[139.59.35.6] out: [32m[PM2] [39mDone.
 [139.59.35.6] out: [90m┌──────┬──────┬────────┬───┬─────┬───────────┐[39m
 [139.59.35.6] out: [90m│[39m[1m[36m Name [39m[22m[90m│[39m[1m[36m mode [39m[22m[90m│[39m[1m[36m status [39m[22m[90m│[39m[1m[36m ↺ [39m[22m[90m│[39m[1m[36m cpu [39m[22m[90m│[39m[1m[36m memory    [39m[22m[90m│[39m
 [139.59.35.6] out: [90m├──────┼──────┼────────┼───┼─────┼───────────┤[39m
-[139.59.35.6] out: [90m│[39m[1m[36m [1m[36mtodo[36m[1m [39m[22m[90m│[39m [7m[1mfork[22m[27m [90m│[39m [32m[1monline[22m[39m [90m│[39m 0 [90m│[39m 0%  [90m│[39m 22.8 MB   [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m [1m[36mtodo[36m[1m [39m[22m[90m│[39m [7m[1mfork[22m[27m [90m│[39m [32m[1monline[22m[39m [90m│[39m 0 [90m│[39m 0%  [90m│[39m 10.2 MB   [90m│[39m
 [139.59.35.6] out: [90m└──────┴──────┴────────┴───┴─────┴───────────┘[39m
 [139.59.35.6] out: [37m[3m Use `pm2 show <id|name>` to get more details about an app[23m[39m
 [139.59.35.6] out: 
 
-DETAILS OF NEW RUNNING pythonSample
-[139.59.35.6] run: pm2 show pythonSample
-[139.59.35.6] out: [33m[PM2][WARN] [39mpythonSample doesn't exist
+DETAILS OF NEW RUNNING todo
+[139.59.35.6] run: pm2 show todo
+[139.59.35.6] out: [1m[7m Describing process with id 0 - name todo [27m[22m
+[139.59.35.6] out: [90m┌───────────────────┬──────────────────────────────────┐[39m
+[139.59.35.6] out: [90m│[39m[1m[36m status            [39m[22m[90m│[39m [32m[1monline[22m[39m                           [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m name              [39m[22m[90m│[39m todo                             [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m restarts          [39m[22m[90m│[39m 0                                [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m uptime            [39m[22m[90m│[39m 0s                               [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m script path       [39m[22m[90m│[39m /root/.vayu/todo/app.js          [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m script args       [39m[22m[90m│[39m N/A                              [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m error log path    [39m[22m[90m│[39m /root/.pm2/logs/todo-error-0.log [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m out log path      [39m[22m[90m│[39m /root/.pm2/logs/todo-out-0.log   [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m pid path          [39m[22m[90m│[39m /root/.pm2/pids/todo-0.pid       [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m interpreter       [39m[22m[90m│[39m node                             [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m interpreter args  [39m[22m[90m│[39m N/A                              [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m script id         [39m[22m[90m│[39m 0                                [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m exec cwd          [39m[22m[90m│[39m /root                            [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m exec mode         [39m[22m[90m│[39m fork_mode                        [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m node.js version   [39m[22m[90m│[39m 4.2.6                            [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m watch & reload    [39m[22m[90m│[39m ✘                                [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m unstable restarts [39m[22m[90m│[39m 0                                [90m│[39m
+[139.59.35.6] out: [90m│[39m[1m[36m created at        [39m[22m[90m│[39m 2017-05-07T12:42:07.716Z         [90m│[39m
+[139.59.35.6] out: [90m└───────────────────┴──────────────────────────────────┘[39m
+[139.59.35.6] out: [37m[3m Add your own code metrics: http://bit.ly/code-metrics[23m[39m
+[139.59.35.6] out: [37m[3m Use `pm2 logs todo [--lines 1000]` to display logs[23m[39m
+[139.59.35.6] out: [37m[3m Use `pm2 monit` to monitor CPU and Memory usage[23m[39m todo
 [139.59.35.6] out: 
 

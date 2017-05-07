@@ -53,14 +53,17 @@ $(function () {
                 method: 'GET'
             }).done(function(res){
                 var data = res.data[0],
-                    fleet = data.fleet;
+                    fleet = data.host_details;
                 for (var key in fleet){
-                    console.log(key, fleet[key]);
-                    host = fleet[key].hosts[0];
+                    host = key
+                    user = fleet[key].host_auth_user;
+                    password = fleet[key].host_auth_password;
+
                     break;
                 }
-                console.log("host: " + host);
                 dataString["host"] = host;
+                dataString["user"] = user;
+                dataString["password"] = password;
                 console.log(JSON.stringify(dataString));
             }).fail(function(error){
                 alert("Something went wrong");

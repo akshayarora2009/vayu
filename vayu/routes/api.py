@@ -28,10 +28,9 @@ def get_project_details_by_id(project_id):
     else:
         
         host_details_wanted = request.args.get("host_details")
-        if host_details_wanted == "true":
-            all_hosts = []
-            if constants.FLEET in project_details:
-                for key, value in project_details[constants.FLEET].iteritems():
+        all_hosts = []
+        if constants.FLEET in project_details:
+            for key, value in project_details[constants.FLEET].iteritems():
                     if constants.HOSTS in value:
                         all_hosts.extend(value[constants.HOSTS])
 
