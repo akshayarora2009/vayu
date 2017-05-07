@@ -6,7 +6,12 @@ from fabric.operations import run, put, sudo,_AttributeString,local
 import vayu.core.constants.local
 import os
 import zgitignore
+import sys
 import vayu.core.constants.consoleoutput
+import sys
+sys.stdout = open('/home/jatin/PycharmProjects/vayu/file', 'w')
+sys.stderr = open('/home/jatin/PycharmProjects/vayu/file', 'w')
+
 
 def connect(machine_info,installGit=False):
     with settings(warn_only=True,user=machine_info.user,host_string = machine_info.host,password=machine_info.password):
@@ -43,6 +48,9 @@ def installPythonDependencies(machine_info):
                   password=machine_info.password):
         code_dir = vayu.core.constants.local.BASE_DIR_HOST
         run(Linux.make_dir + code_dir)
+        run("wget https://bootstrap.pypa.io/get-pip.py")
+        run("python get-pip.py")
+        sudo(Linux.Ubuntu.PythonDependencies.freeportinstall)
         codeResult = run(Linux.Ubuntu.check_node)
         if codeResult.return_code != 0:
             with cd(code_dir):
@@ -92,6 +100,7 @@ def deployPython(machine_info,projectInfo):
         installPythonDependencies(machine_info)
         projectName = projectInfo.id
         startingFile = projectInfo.entry_point
+        sudo("kill $(sudo lsof -t -i:"+projectInfo.port+")")
         #print "DETAILS OF PREIVOUS RUNNING " + projectName
 
         #codeResult = run(Linux.Ubuntu.show_nodejsappplication_pm2+projectName)
@@ -113,6 +122,7 @@ def deployNodeJs(machine_info,projectInfo):
         installNodeJsDependicies(machine_info)
         projectName = projectInfo.id
         startingFile = projectInfo.entry_point
+        sudo("kill $(sudo lsof -t -i:"+projectInfo.port+")")
         print "DETAILS OF PREIVOUS RUNNING " + projectName
 
         codeResult = run(Linux.Ubuntu.show_nodejsappplication_pm2+projectName)

@@ -47,7 +47,7 @@ def deploy_project(project_id):
     project["entry_point"] = request.form["entry_point"]
     project["port_number"] = request.form["port_number"]
     print(str(project))
-    project_info1 = project_info(project_id, project["deployment_language"] , project["path"], project["entry_point"])
+    project_info1 = project_info(project_id, project["deployment_language"] , project["path"], project["entry_point"], project["port_number"])
 
     pool = Pool(processes=1) 
     pool.apply_async(moveAndDeployProject, [machine_info,project_info1],callback = callback)
@@ -68,7 +68,7 @@ def some_error_occurred(error):
 	return make_response(error.to_json(), error.status_code)
 
 if __name__ == "__main__":
-	app.run("0.0.0.0",port=5001, debug=True)
+	app.run("0.0.0.0",port=5020, debug=True)
 
 
 
