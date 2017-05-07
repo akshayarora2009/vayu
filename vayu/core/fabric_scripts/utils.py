@@ -6,12 +6,12 @@ from fabric.operations import run, put, sudo,_AttributeString,local
 import vayu.core.constants.local
 import os
 import zgitignore
-import sys
 import vayu.core.constants.consoleoutput
 import sys
-sys.stdout = open('/home/jatin/PycharmProjects/vayu/file', 'w')
-sys.stderr = open('/home/jatin/PycharmProjects/vayu/file', 'w')
 
+
+def assignouterr(file):
+    sys.stdout = file
 
 def connect(machine_info,installGit=False):
     with settings(warn_only=True,user=machine_info.user,host_string = machine_info.host,password=machine_info.password):
@@ -122,7 +122,6 @@ def deployNodeJs(machine_info,projectInfo):
         installNodeJsDependicies(machine_info)
         projectName = projectInfo.id
         startingFile = projectInfo.entry_point
-        sudo("kill $(sudo lsof -t -i:"+projectInfo.port+")")
         print "DETAILS OF PREIVOUS RUNNING " + projectName
 
         codeResult = run(Linux.Ubuntu.show_nodejsappplication_pm2+projectName)
