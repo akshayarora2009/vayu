@@ -44,16 +44,14 @@ def deploy_project(project_id):
     project["path"] = request.form["project_path"]
     project["id"] = project_id
     project["entry_point"] = request.form["entry_point"]
+    print(project_id)
+    project_info1 = project_info(project_id,"Python", project["path"], project["entry_point"])
 
-    project_info1 = project_info(project_id,"nodejs", project["path"], project["entry_point"])
-
-    print(project_info1)
 
 
     pool = Pool(processes=1) 
     pool.apply_async(moveAndDeployProject, [machine_info,project_info1],callback = callback)
     pool.close()
-    pool.join()
     return make_response("Success", 200)
 
 @app.route('/monitoring')

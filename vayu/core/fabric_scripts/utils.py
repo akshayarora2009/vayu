@@ -37,6 +37,21 @@ def installgit(machine_info):
         else :
             print(vayu.core.constants.consoleoutput.GIT_ALREADY_INSTALLED)
 
+
+def installPythonDependencies(machine_info):
+    with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,
+                  password=machine_info.password):
+        code_dir = vayu.core.constants.local.BASE_DIR_HOST
+        run(Linux.make_dir + code_dir)
+        codeResult = run(Linux.Ubuntu.check_node)
+        if codeResult.return_code != 0:
+            with cd(code_dir):
+                sudo(Linux.Ubuntu.PythonDependencies.install_python_setup_tools)
+                sudo(Linux.Ubuntu.PythonDependencies.install_python_dev_tools)
+        else:
+            print(vayu.core.constants.consoleoutput.PYTHON_ALREADY_INSTALLED)
+
+
 def installNodeJsDependicies(machine_info):
     with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,
                   password=machine_info.password):
@@ -66,13 +81,37 @@ def copyMultipleFiles(machine_info,projectName,files=['.']):
             put(file, code_dir_project)
 
 def deployCode (machine_info,projectInfo):
-    if projectInfo.type == "nodejs" :
+    if projectInfo.type == "Node.js" :
         deployNodeJs(machine_info,projectInfo)
+    if projectInfo.type == "Python":
+        deployPython(machine_info, projectInfo)
+
+def deployPython(machine_info,projectInfo):
+    with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,
+                  password=machine_info.password):
+        installPythonDependencies(machine_info)
+        projectName = projectInfo.id
+        startingFile = projectInfo.entry_point
+        print "DETAILS OF PREIVOUS RUNNING " + projectName
+
+        #codeResult = run(Linux.Ubuntu.show_nodejsappplication_pm2+projectName)
+        #if codeResult.return_code == 0:
+         #   run(Linux.Ubuntu.delete_nodejsappplication_pm2+projectName)
+
+        with cd(os.path.join(vayu.core.constants.local.BASE_DIR_HOST,projectName)):
+            run("python setup.py install")
+            run("python "+startingFile)
+
+        #print "DETAILS OF NEW RUNNING " + projectName
+        #run(Linux.Ubuntu.show_nodejsappplication_pm2 + projectName)
+
+
 
 def deployNodeJs(machine_info,projectInfo):
     with settings(warn_only=True, user=machine_info.user, host_string=machine_info.host,
                   password=machine_info.password):
-        projectName = projectInfo.name
+        installNodeJsDependicies(machine_info)
+        projectName = projectInfo.id
         startingFile = projectInfo.entry_point
         print "DETAILS OF PREIVOUS RUNNING " + projectName
 

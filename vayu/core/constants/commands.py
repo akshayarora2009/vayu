@@ -35,5 +35,11 @@ class Linux:
         pm2_name = " --name "
         npm_install = "npm install"
 
-
+        class PythonDependencies :
+            install_python2 = ""
+            install_python3 = ""
+            install_python2_dev_tools = "sudo apt-get install python-dev"
+            install_python3_dev_tools = "sudo apt-get install python3-dev "
+            install_python3_setup_tools = "sudo apt-get install python3-setuptools"
+            install_python2_setup_tools = "sudo apt-get install python-setuptools"
 

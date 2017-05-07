@@ -13,11 +13,8 @@ $(function(){
                 versions : [ "7.x" , "6.x" , "5.x" , "4.x" , "3.x"],
                 production : [ "pm2" , "forever"]
             },
-            "Java" : {
-                versions : [ "1.7" , "1.6" , "1.5" , "1.4"]
-            },
-            "Android" : { 
-                versions : [ "7.x" , "6.x" , "5.x" , "4.x" , "3.x" , "2.x" ]
+            "Python" : {
+                versions : [ "2" , "3" ]
             }
     };
 
