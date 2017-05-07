@@ -20,6 +20,8 @@ class Linux:
         install_git= "apt-get install git"
         check_git = "git --version"
         check_node = "node -v"
+        check_python = "python3 --version"
+        check_freeport = " hash freeport"
         install_npm = "sudo apt-get -y install npm"
         install_nvmfromnpm = "npm install nvm"
         install_nodefromnpm = "npm install node"
@@ -42,4 +44,5 @@ class Linux:
             install_python3_dev_tools = "sudo apt-get install python3-dev "
             install_python3_setup_tools = "sudo apt-get install python3-setuptools"
             install_python2_setup_tools = "sudo apt-get install python-setuptools"
+            freeportinstall  = "pip install freeport"
 
