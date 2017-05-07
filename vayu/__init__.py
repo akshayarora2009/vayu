@@ -46,6 +46,7 @@ def deploy_project(project_id):
     project["id"] = project_id
     project["entry_point"] = request.form["entry_point"]
     project["port_number"] = request.form["port_number"]
+    print(str(project))
     project_info1 = project_info(project_id, project["deployment_language"] , project["path"], project["entry_point"])
 
     pool = Pool(processes=1) 
