@@ -1,0 +1,12 @@
+#Softwares needed on local to install VAYU
+
+1. Need python
+2. Install PIP
+
+##these are the dependenicies which needed to be install before installing Fabric
+sudo apt-get install build-essential libssl-dev libffi-dev python-dev
+
+2.4 Install cryptograhy
+3. Install python Fabric
+
+In setup install PIP and from pip install
